@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="navdrawer_items">
+        <item>Home</item>
+        <item>Profile</item>
+        <item>Notes</item>
+        <item>CEP get shrekt</item>
+        <item>Us</item>
+        <item>Settings</item>
+        <item>Help</item>
+    </string-array>
+</resources>
