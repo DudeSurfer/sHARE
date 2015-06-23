@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/splash_page">
 
-
-
+    <ImageView
+        android:src="@drawable/splash_page"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
