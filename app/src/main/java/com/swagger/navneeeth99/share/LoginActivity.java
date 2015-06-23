@@ -2,6 +2,7 @@ package com.swagger.navneeeth99.share;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -96,5 +97,21 @@ public class LoginActivity extends Activity {
 
     @Override
     public void onBackPressed() {
+        new CustomDialog.Builder(LoginActivity.this)
+                .setTitle("Are you sure?")
+                .setMessage("Close the app?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(a);
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        })
+                .create()
+                .show();
     }
 }
