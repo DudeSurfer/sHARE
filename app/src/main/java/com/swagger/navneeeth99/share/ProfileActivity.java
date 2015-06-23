@@ -56,10 +56,11 @@ public class ProfileActivity extends BaseActivity {
         mStatusTV = (TextView) findViewById(R.id.statusTV);
         mPreview = (ImageView) findViewById(R.id.profilePic);
 
-//        String st = ParseUser.getCurrentUser().getString("status");
-//        if (st != "") {
-//            mStatusTV.setText(st);
-//        }
+        String st = ParseUser.getCurrentUser().getString("status");
+        if (st != "") {
+            mStatusTV.setText(st);
+        }
+
         ParseFile pf = ParseUser.getCurrentUser().getParseFile("profilepic");
         pf.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {

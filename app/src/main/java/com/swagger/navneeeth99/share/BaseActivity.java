@@ -3,6 +3,8 @@ package com.swagger.navneeeth99.share;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class BaseActivity extends ActionBarActivity {
@@ -56,8 +62,21 @@ public class BaseActivity extends ActionBarActivity {
                 }
             }
         });
-        View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
+        final View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
         ((TextView)header.findViewById(R.id.nameTextView)).setText(ParseUser.getCurrentUser().getUsername());
+        ParseFile pf = ParseUser.getCurrentUser().getParseFile("profilepic");
+        pf.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                if (e == null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    if (bitmap != null) {
+                        ((RoundedImageView)header.findViewById(R.id.profilePicImageView)).setImageBitmap(bitmap);
+                    }
+                }
+                else {
+                    // something went wrong
+                }
+            }});
         mLeftNavList.addHeaderView(header);
 
         getSupportActionBar().setHomeButtonEnabled(true);
