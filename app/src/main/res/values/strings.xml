@@ -9,5 +9,6 @@
     <string name="close">close nav</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_indiv_chat">IndivChatActivity</string>
 
 </resources>

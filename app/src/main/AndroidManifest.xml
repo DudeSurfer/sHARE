@@ -24,6 +24,10 @@
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up" >
         </activity>
+        <activity
+            android:name=".IndivChatActivity"
+            android:label="@string/title_activity_indiv_chat" >
+        </activity>
     </application>
 
 </manifest>
