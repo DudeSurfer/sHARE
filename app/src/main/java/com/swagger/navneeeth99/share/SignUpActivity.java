@@ -57,12 +57,16 @@ public class SignUpActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (!mNameET.getText().toString().equals("")&& !mEmailET.getText().toString().equals("") && !mPasswordET.getText().toString().equals("") && !mConfirmPasswordET.getText().toString().equals("")) {
-                    if (mPasswordET.getText().toString().equals(mConfirmPasswordET.getText().toString())) {
-                        createUser(mNameET.getText().toString(), mEmailET.getText().toString(), mPasswordET.getText().toString());
+                    if (mNameET.getText().toString().length() < 13) {
+                        if (mPasswordET.getText().toString().equals(mConfirmPasswordET.getText().toString())) {
+                            createUser(mNameET.getText().toString(), mEmailET.getText().toString(), mPasswordET.getText().toString());
+                        } else {
+                            Toast.makeText(SignUpActivity.this, getString(R.string.pw_not_same), Toast.LENGTH_LONG).show();
+                            mPasswordET.setText("");
+                            mConfirmPasswordET.setText("");
+                        }
                     } else {
-                        Toast.makeText(SignUpActivity.this, getString(R.string.pw_not_same), Toast.LENGTH_LONG).show();
-                        mPasswordET.setText("");
-                        mConfirmPasswordET.setText("");
+                        Toast.makeText(SignUpActivity.this, getString(R.string.username_under_12), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Toast.makeText(SignUpActivity.this, getString(R.string.full_fields), Toast.LENGTH_LONG).show();

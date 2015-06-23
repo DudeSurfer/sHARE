@@ -63,7 +63,10 @@ public class BaseActivity extends ActionBarActivity {
             }
         });
         final View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
-        ((TextView)header.findViewById(R.id.nameTextView)).setText(ParseUser.getCurrentUser().getUsername());
+        TypefacedTextView nameTV = (TypefacedTextView)header.findViewById(R.id.nameTextView);
+        if (nameTV != null) {
+            nameTV.setText(ParseUser.getCurrentUser().getUsername());
+        }
         ParseFile pf = ParseUser.getCurrentUser().getParseFile("profilepic");
         pf.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
