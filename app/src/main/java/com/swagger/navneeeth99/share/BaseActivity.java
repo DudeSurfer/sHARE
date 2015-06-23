@@ -25,9 +25,7 @@ public class BaseActivity extends ActionBarActivity {
     private ListView mLeftNavList;
     private Context mContext;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreateDrawer () {
         setContentView(R.layout.activity_base);
 
         mContext = this;
@@ -64,7 +62,7 @@ public class BaseActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mNavToggle = new android.support.v4.app.ActionBarDrawerToggle(this, mLeftNavDrawer, R.drawable.ic_drawer, R.string.open, R.string.close) {
+        mNavToggle = new android.support.v4.app.ActionBarDrawerToggle(this, mLeftNavDrawer, R.drawable.hare, R.string.open, R.string.close) {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);

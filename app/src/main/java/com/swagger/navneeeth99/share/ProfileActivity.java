@@ -31,7 +31,7 @@ import com.parse.ParseUser;
 import java.io.ByteArrayOutputStream;
 
 
-public class ProfileActivity extends ActionBarActivity {
+public class ProfileActivity extends BaseActivity {
 
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLERY = 2;
@@ -41,67 +41,13 @@ public class ProfileActivity extends ActionBarActivity {
     private ImageButton mGalleryButton;
     private ImageView mPreview;
     private TextView mStatusTV;
-    private String[] mNavChoices;
-    private DrawerLayout mLeftNavDrawer;
-    private android.support.v4.app.ActionBarDrawerToggle mNavToggle;
-    private ListView mLeftNavList;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mContext = this;
-        mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
-        mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
-        mLeftNavList = (ListView)findViewById(R.id.drawer_list);
+        super.onCreateDrawer();
 
-        mLeftNavList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mNavChoices));
-        mLeftNavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mSelectedDest = (String)mLeftNavList.getItemAtPosition(position);
-                if (mSelectedDest.equals("Home")){
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
-
-                } else if (mSelectedDest.equals("Profile")){
-                    Intent intent = new Intent(mContext, ProfileActivity.class);
-                    startActivity(intent);
-
-                } else if (mSelectedDest.equals("Notes")){
-
-                } else if (mSelectedDest.equals("Settings")){
-
-                } else if (mSelectedDest.equals("Chat")) {
-                    Intent intent = new Intent(mContext, IndivChatActivity.class);
-                    startActivity(intent);
-
-
-                }
-            }
-        });
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mNavToggle = new android.support.v4.app.ActionBarDrawerToggle(this, mLeftNavDrawer, R.drawable.ic_drawer, R.string.open, R.string.close) {
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                //getActionBar().setTitle(mTitle);
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                //getActionBar().setTitle(mDrawerTitle);
-            }
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mLeftNavDrawer.setDrawerListener(mNavToggle);
-        mNavToggle.syncState();
         setTitle(ParseUser.getCurrentUser().getUsername());
         mLogoutButton = (Button) findViewById(R.id.logOutButton);
         mCameraButton = (ImageButton) findViewById(R.id.cameraButton);
@@ -110,12 +56,10 @@ public class ProfileActivity extends ActionBarActivity {
         mStatusTV = (TextView) findViewById(R.id.statusTV);
         mPreview = (ImageView) findViewById(R.id.profilePic);
 
-
-
-        String st = ParseUser.getCurrentUser().getString("status");
-        if (st != "") {
-            mStatusTV.setText(st);
-        }
+//        String st = ParseUser.getCurrentUser().getString("status");
+//        if (st != "") {
+//            mStatusTV.setText(st);
+//        }
         ParseFile pf = ParseUser.getCurrentUser().getParseFile("profilepic");
         pf.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
@@ -174,6 +118,7 @@ public class ProfileActivity extends ActionBarActivity {
                 }).create().show();
             }
         });
+
 
         mCameraButton.setOnClickListener(new View.OnClickListener(){
                                              @Override

@@ -16,17 +16,13 @@ import android.widget.ListView;
 import com.parse.ParseUser;
 
 
-public class MainActivity extends ActionBarActivity {
-    private String[] mNavChoices;
-    private DrawerLayout mLeftNavDrawer;
-    private android.support.v4.app.ActionBarDrawerToggle mNavToggle;
-    private ListView mLeftNavList;
-    private Context mContext;
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreateDrawer();
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser==null){
@@ -34,57 +30,7 @@ public class MainActivity extends ActionBarActivity {
             startActivity(intent);
         }
 
-        mContext = this;
-        mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
-        mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
-        mLeftNavList = (ListView)findViewById(R.id.drawer_list);
 
-        mLeftNavList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mNavChoices));
-        mLeftNavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mSelectedDest = (String)mLeftNavList.getItemAtPosition(position);
-                if (mSelectedDest.equals("Home")){
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
-
-                } else if (mSelectedDest.equals("Profile")){
-                    Intent intent = new Intent(mContext, ProfileActivity.class);
-                    startActivity(intent);
-
-                } else if (mSelectedDest.equals("Notes")){
-
-                } else if (mSelectedDest.equals("Settings")){
-
-                } else if (mSelectedDest.equals("Chat")) {
-                    Intent intent = new Intent(mContext, IndivChatActivity.class);
-                    startActivity(intent);
-
-
-                }
-            }
-        });
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mNavToggle = new android.support.v4.app.ActionBarDrawerToggle(this, mLeftNavDrawer, R.drawable.hare, R.string.open, R.string.close) {
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                //getActionBar().setTitle(mTitle);
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                //getActionBar().setTitle(mDrawerTitle);
-            }
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mLeftNavDrawer.setDrawerListener(mNavToggle);
-        mNavToggle.syncState();
     }
 
 
@@ -107,24 +53,7 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
-        if (mNavToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mNavToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mNavToggle.onConfigurationChanged(newConfig);
     }
 
 }
