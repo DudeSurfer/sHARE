@@ -26,7 +26,6 @@ public class BaseActivity extends ActionBarActivity {
     private Context mContext;
 
     protected void onCreateDrawer () {
-        setContentView(R.layout.activity_base);
 
         mContext = this;
         mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
