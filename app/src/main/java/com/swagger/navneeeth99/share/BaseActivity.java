@@ -77,7 +77,7 @@ public class BaseActivity extends ActionBarActivity {
                     // something went wrong
                 }
             }});
-        mLeftNavList.addHeaderView(header);
+        mLeftNavList.addHeaderView(header, "profile summary", false);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
