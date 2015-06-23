@@ -29,8 +29,9 @@ public class MainActivity extends ActionBarActivity {
 
         mLeftNavList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mNavChoices));
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mNavToggle = new android.support.v4.app.ActionBarDrawerToggle(this, mLeftNavDrawer, R.drawable.ic_drawer, R.string.open, R.string.close) {
             /** Called when a drawer has settled in a completely closed state. */
@@ -48,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Set the drawer toggle as the DrawerListener
         mLeftNavDrawer.setDrawerListener(mNavToggle);
+        mNavToggle.syncState();
     }
 
 

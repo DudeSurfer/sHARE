@@ -12,5 +12,28 @@
     <string name="title_activity_indiv_chat">IndivChatActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="pw">password</string>
+    <string name="email">email address</string>
+    <string name="name">username</string>
+    <string name="confirm_pw">confirm password</string>
+    <string name="full_fields">Ensure you have filled in all fields.</string>
+    <string name="pw_not_same">Your passwords do not match.</string>
+    <string name="proceed">proceed</string>
+    <string name="login_pls">login to your newt</string>
+    <string name="sign_up">sign up</string>
+    <string name="new_user">new to newtwork?</string>
+    <string name="welcome">welcome to newtwork</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alreadymember">already a member?</string>
+    <string name="backlogin">back to login</string>
+    <string name="action_search">Search</string>
+    <string name="action_profile">Profile</string>
+    <string name="profile_pic">profile picture</string>
+    <string name="status">status</string>
+    <string name="status_placeholder">this is your status</string>
+    <string name="search">Search</string>
+    <string name="empty_users">Sorry. It appears there are no users.</string>
+    <string name="no_friend">Oops. Seems like you have no friends? That\'s odd. Try going to the users tab to add some friends!</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>

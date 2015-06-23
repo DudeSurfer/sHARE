@@ -27,4 +27,6 @@ dependencies {
     compile 'com.github.shell-software:fab:1.0.5'
     compile 'com.makeramen:roundedimageview:2.1.0'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 }

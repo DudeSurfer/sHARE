@@ -12,64 +12,64 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-//import com.parse.LogInCallback;
-//import com.parse.ParseException;
-//import com.parse.ParseUser;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 
 public class LoginActivity extends Activity {
 
-//    private EditText mNameET;
-//    private EditText mPasswordET;
-//    private Button mLoginButton;
-//    private Button mSignUpButton;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
-//        mNameET = (EditText) findViewById(R.id.usernameEditText);
-//        mPasswordET = (EditText) findViewById(R.id.passwordEditText);
-//        mLoginButton = (Button) findViewById(R.id.loginButton);
-//        mSignUpButton = (Button) findViewById(R.id.signUpButton);
-//        mLoginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!mNameET.getText().toString().equals("") && !mPasswordET.getText().toString().equals("")) {
-//                    ParseUser.logInInBackground(mNameET.getText().toString(), mPasswordET.getText().toString(), new LogInCallback() {
-//                        @Override
-//                        public void done(ParseUser parseUser, ParseException e) {
-//                            setProgressBarIndeterminateVisibility(false);
-//                            if (e == null) {
-//                                // Success!
-//                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                startActivity(intent);
-//                            } else {
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-//                                builder.setMessage(e.getMessage())
-//                                        .setTitle("Sorry.")
-//                                        .setPositiveButton(android.R.string.ok, null);
-//                                AlertDialog dialog = builder.create();
-//                                dialog.show();
-//                            }
-//                        }
-//                    });
-//                } else {
-//                    Toast.makeText(LoginActivity.this, "Ensure all fields are filled in.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//        mSignUpButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//    }
+    private EditText mNameET;
+    private EditText mPasswordET;
+    private Button mLoginButton;
+    private Button mSignUpButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        mNameET = (EditText) findViewById(R.id.usernameEditText);
+        mPasswordET = (EditText) findViewById(R.id.passwordEditText);
+        mLoginButton = (Button) findViewById(R.id.loginButton);
+        mSignUpButton = (Button) findViewById(R.id.signUpButton);
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mNameET.getText().toString().equals("") && !mPasswordET.getText().toString().equals("")) {
+                    ParseUser.logInInBackground(mNameET.getText().toString(), mPasswordET.getText().toString(), new LogInCallback() {
+                        @Override
+                        public void done(ParseUser parseUser, ParseException e) {
+                            setProgressBarIndeterminateVisibility(false);
+                            if (e == null) {
+                                // Success!
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                builder.setMessage(e.getMessage())
+                                        .setTitle("Sorry.")
+                                        .setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Ensure all fields are filled in.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
 
 
     @Override
