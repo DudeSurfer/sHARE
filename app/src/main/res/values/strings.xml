@@ -36,5 +36,6 @@
     <string name="no_friend">Oops. Seems like you have no friends? That\'s odd. Try going to the users tab to add some friends!</string>
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_help">HelpActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>
