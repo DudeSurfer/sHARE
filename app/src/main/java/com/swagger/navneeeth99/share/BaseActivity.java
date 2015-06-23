@@ -56,6 +56,9 @@ public class BaseActivity extends ActionBarActivity {
                 }
             }
         });
+        View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
+        ((TextView)header.findViewById(R.id.nameTextView)).setText(ParseUser.getCurrentUser().getUsername());
+        mLeftNavList.addHeaderView(header);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
