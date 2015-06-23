@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/dialog_bg"
+              android:layout_width="fill_parent"
+              android:minWidth="280dip"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:textColor="#ffd13d25"
+        android:textStyle="bold"
+        android:id="@+id/title"
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:id="@+id/content"
+        android:orientation="vertical"
+        android:background="#efdecb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            android:textSize="20sp"
+            android:id="@+id/message"
+            android:padding="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#ffffffff"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#d13d25"
+            android:background="#efdecb"
+            android:id="@+id/negativeButton"
+            android:padding="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#d13d25"
+            android:background="#efdecb"
+            android:padding="5dp"
+            android:id="@+id/positiveButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

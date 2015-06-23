@@ -7,5 +7,7 @@
     <string name="generic_dummy">Dummy dummy!</string>
     <string name="open">open nav</string>
     <string name="close">close nav</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
 
 </resources>

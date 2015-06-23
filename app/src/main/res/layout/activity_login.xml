@@ -1,0 +1,86 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="#efdecb"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.nyanch.newtwork.LoginActivity">
+
+    <TextView
+        android:background="#d13d25"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:textStyle="bold"
+        android:text="Login to start sharing!"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernameEditText"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:hint="username" />
+
+    <EditText
+        android:layout_alignParentRight="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordEditText"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        android:padding="15dp"
+        android:hint="password" />
+
+    <Button
+        android:background="#d13d25"
+        android:textColor="#ffffff"
+        android:text="proceed"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:id="@+id/loginButton"
+        android:layout_marginBottom="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="new to sharing?"
+            android:textSize="20sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:background="#e06750"
+            android:textColor="#ffffff"
+            android:text="sign up"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:id="@+id/signUpButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>
