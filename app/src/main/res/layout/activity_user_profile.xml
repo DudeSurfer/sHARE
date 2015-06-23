@@ -17,7 +17,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_alignParentLeft="true"
-            android:contentDescription="@string/profile_pic"
+            android:contentDescription="profile picture"
             android:id="@+id/profilePic"
             android:src="@drawable/ic_launcher"
             app:riv_corner_radius="30dip"
@@ -29,10 +29,10 @@
 
         <ImageButton
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/attackButton"
-            android:layout_toLeftOf="@id/attackButton"
             android:id="@+id/chatButton"
             android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/ic_textsms_black_24dp"
             android:layout_width="50dp"
             android:layout_height="50dp"/>

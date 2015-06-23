@@ -17,7 +17,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_alignParentLeft="true"
-            android:contentDescription="@string/profile_pic"
+            android:contentDescription="profile picture"
             android:id="@+id/profilePic"
             android:src="@drawable/ic_launcher"
             app:riv_corner_radius="30dip"
