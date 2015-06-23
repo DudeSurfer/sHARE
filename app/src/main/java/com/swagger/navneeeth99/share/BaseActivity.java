@@ -6,18 +6,19 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
 
-/**
- * Created by navneeeth99 on 23/6/15.
- */
 public class BaseActivity extends ActionBarActivity {
     private String[] mNavChoices;
     private DrawerLayout mLeftNavDrawer;
@@ -26,17 +27,15 @@ public class BaseActivity extends ActionBarActivity {
     private Context mContext;
 
     protected void onCreateDrawer () {
-
         mContext = this;
         mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
         mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
         mLeftNavList = (ListView)findViewById(R.id.drawer_list);
-
-        mLeftNavList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mNavChoices));
+        mLeftNavList.setAdapter(new MySimpleArrayAdapter(this, mNavChoices));
         mLeftNavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mSelectedDest = (String)mLeftNavList.getItemAtPosition(position);
+                String mSelectedDest = (String) mLeftNavList.getItemAtPosition(position);
                 if (mSelectedDest.equals("Home")){
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
@@ -119,4 +118,42 @@ public class BaseActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         mNavToggle.onConfigurationChanged(newConfig);
     }
+
+    public class MySimpleArrayAdapter extends ArrayAdapter<String> {
+        private final Context context;
+        private final String[] values;
+
+        public MySimpleArrayAdapter(Context context, String[] values) {
+            super(context, -1, values);
+            this.context = context;
+            this.values = values;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+            TextView textView = (TextView) rowView.findViewById(R.id.label);
+            ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+            String mSelectedDest = values[position];
+            textView.setText(values[position]);
+            if (mSelectedDest.equals("Home")){
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_white_24dp));
+            } else if (mSelectedDest.equals("Profile")){
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_account_circle_white_24dp));
+            } else if (mSelectedDest.equals("Notes")){
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_description_white_24dp));
+            } else if (mSelectedDest.equals("Help")){
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_white_24dp));
+            } else if (mSelectedDest.equals("Settings")){
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_settings_white_24dp));
+            } else {
+                imageView.setVisibility(View.GONE);
+            }
+
+            return rowView;
+        }
+    }
+
 }
