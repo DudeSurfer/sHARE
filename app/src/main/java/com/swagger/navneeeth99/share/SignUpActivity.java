@@ -101,7 +101,7 @@ public class SignUpActivity extends Activity {
         newUser.setPassword(password);
         newUser.setEmail(email);
         newUser.put("lowerUsername", username.toLowerCase());
-        newUser.put("status", "Hi! I'm a newt.");
+        newUser.put("status", "This is my status.");
         newUser.put("friends", new ArrayList<String>());
         newUser.signUpInBackground(new SignUpCallback() {
             @Override
