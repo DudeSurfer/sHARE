@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.ParseUser;
+
 
 public class MainActivity extends ActionBarActivity {
     private String[] mNavChoices;
@@ -26,6 +28,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser==null){
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+
         mContext = this;
         mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
         mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);

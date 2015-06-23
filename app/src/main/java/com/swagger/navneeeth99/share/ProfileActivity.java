@@ -1,20 +1,25 @@
 package com.swagger.navneeeth99.share;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.GetDataCallback;
@@ -35,19 +40,76 @@ public class ProfileActivity extends ActionBarActivity {
     private ImageButton mGalleryButton;
     private ImageView mPreview;
     private TextView mStatusTV;
+    private String[] mNavChoices;
+    private DrawerLayout mLeftNavDrawer;
+    private android.support.v4.app.ActionBarDrawerToggle mNavToggle;
+    private ListView mLeftNavList;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        setTitle(ParseUser.getCurrentUser().getUsername());
+        mContext = this;
+        mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
+        mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
+        mLeftNavList = (ListView)findViewById(R.id.drawer_list);
+
+        mLeftNavList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mNavChoices));
+        mLeftNavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String mSelectedDest = (String)mLeftNavList.getItemAtPosition(position);
+                if (mSelectedDest.equals("Home")){
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    startActivity(intent);
+
+                } else if (mSelectedDest.equals("Profile")){
+                    Intent intent = new Intent(mContext, ProfileActivity.class);
+                    startActivity(intent);
+
+                } else if (mSelectedDest.equals("Notes")){
+
+                } else if (mSelectedDest.equals("Settings")){
+
+                } else if (mSelectedDest.equals("Chat")) {
+                    Intent intent = new Intent(mContext, IndivChatActivity.class);
+                    startActivity(intent);
+
+
+                }
+            }
+        });
+
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavToggle = new android.support.v4.app.ActionBarDrawerToggle(this, mLeftNavDrawer, R.drawable.ic_drawer, R.string.open, R.string.close) {
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                //getActionBar().setTitle(mTitle);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                //getActionBar().setTitle(mDrawerTitle);
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mLeftNavDrawer.setDrawerListener(mNavToggle);
+        mNavToggle.syncState();
+        setTitle(ParseUser.getCurrentUser().getUsername());
         mLogoutButton = (Button) findViewById(R.id.logOutButton);
         mCameraButton = (ImageButton) findViewById(R.id.cameraButton);
         mGalleryButton = (ImageButton) findViewById(R.id.galleryButton);
         mStatusButton = (ImageButton) findViewById(R.id.statusButton);
         mStatusTV = (TextView) findViewById(R.id.statusTV);
         mPreview = (ImageView) findViewById(R.id.profilePic);
+
+
 
         String st = ParseUser.getCurrentUser().getString("status");
         if (st != "") {
@@ -159,6 +221,8 @@ public class ProfileActivity extends ActionBarActivity {
         });
 
     }
+
+
 
 
     @Override
