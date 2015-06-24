@@ -3,6 +3,7 @@ package com.swagger.navneeeth99.share;
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 /**
  * Created by navneeeth99 on 24/6/15.
@@ -43,5 +44,13 @@ public class Notes extends ParseObject {
 
     public void setNotesData(ParseFile mTopic) {
         put("notesData", mTopic);
+    }
+
+    public ParseUser getContributor(){
+        return getParseUser("poster");
+    }
+
+    public void setContributor(ParseUser mPoster){
+        put("poster", mPoster);
     }
 }
