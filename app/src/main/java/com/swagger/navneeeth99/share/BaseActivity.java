@@ -45,15 +45,15 @@ public class BaseActivity extends ActionBarActivity {
                 if (mSelectedDest.equals("Home")){
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
-
                 } else if (mSelectedDest.equals("Profile")){
                     Intent intent = new Intent(mContext, ProfileActivity.class);
                     startActivity(intent);
-
                 } else if (mSelectedDest.equals("Notes")){
-
+                    Intent intent = new Intent(mContext, NotesActivity.class);
+                    startActivity(intent);
                 } else if (mSelectedDest.equals("Settings")){
-
+                    Intent intent = new Intent(mContext, SettingsActivity.class);
+                    startActivity(intent);
                 } else if (mSelectedDest.equals("Chat")) {
                     Intent intent = new Intent(mContext, IndivChatActivity.class);
                     startActivity(intent);
