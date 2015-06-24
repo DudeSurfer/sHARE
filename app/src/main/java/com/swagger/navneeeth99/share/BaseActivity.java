@@ -37,6 +37,8 @@ public class BaseActivity extends ActionBarActivity {
         mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
         mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
         mLeftNavList = (ListView)findViewById(R.id.drawer_list);
+        final View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
+        mLeftNavList.addHeaderView(header, "profile summary", false);
         mLeftNavList.setAdapter(new MySimpleArrayAdapter(this, mNavChoices));
         mLeftNavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -62,7 +64,6 @@ public class BaseActivity extends ActionBarActivity {
                 }
             }
         });
-        final View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
         TypefacedTextView nameTV = (TypefacedTextView)header.findViewById(R.id.nameTextView);
         if (nameTV != null) {
             nameTV.setText(ParseUser.getCurrentUser().getUsername());
@@ -80,7 +81,6 @@ public class BaseActivity extends ActionBarActivity {
                     // something went wrong
                 }
             }});
-        mLeftNavList.addHeaderView(header, "profile summary", false);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
