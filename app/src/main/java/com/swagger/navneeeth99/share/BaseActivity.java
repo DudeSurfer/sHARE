@@ -135,7 +135,9 @@ public class BaseActivity extends ActionBarActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mNavToggle.syncState();
+        if (ParseUser.getCurrentUser() != null) {
+            mNavToggle.syncState();
+        }
     }
 
     @Override
