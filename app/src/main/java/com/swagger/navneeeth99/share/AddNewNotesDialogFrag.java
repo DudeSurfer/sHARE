@@ -11,10 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
@@ -32,6 +35,9 @@ public class AddNewNotesDialogFrag extends DialogFragment{
     public static int PICKFILE_REQUEST_CODE = 1;
     private ParseFile notesData;
     private Button mUploadNotesBT;
+    private String mLevelSelected;
+    private String mSubjectSelected;
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -50,6 +56,44 @@ public class AddNewNotesDialogFrag extends DialogFragment{
             }
         });
 
+        Spinner mLevelSpinner = (Spinner)mLL.findViewById(R.id.levelNote);
+        ArrayAdapter<CharSequence> mLevelAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.level_list, android.R.layout.simple_spinner_item);
+        mLevelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mLevelSpinner.setAdapter(mLevelAdapter);
+
+        mLevelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mLevelSelected = getResources().getStringArray(R.array.level_list)[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Spinner mSubjectSpinner = (Spinner)mLL.findViewById(R.id.subjectNote);
+        ArrayAdapter<CharSequence> mSubjectAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.subject_list, android.R.layout.simple_spinner_item);
+        mSubjectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSubjectSpinner.setAdapter(mSubjectAdapter);
+
+        mSubjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSubjectSelected = getResources().getStringArray(R.array.subject_list)[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        final EditText mTopicET = (EditText)mLL.findViewById(R.id.topicNote);
+
+
+
         // Use the Builder class for convenient dialog construction
         CustomDialog.Builder builder = new CustomDialog.Builder(getActivity());
         builder.setTitle("Add new notes!")
@@ -60,13 +104,13 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                             Toast.makeText(getActivity(), "A PNG/doc/docx file was picked", Toast.LENGTH_SHORT).show();
                             Notes mNewNote = new Notes();
                             mNewNote.setContributor(ParseUser.getCurrentUser().getObjectId());
-                            mNewNote.setSubject("SS");
-                            mNewNote.setLevel("Secondary 4");
-                            mNewNote.setTopic("Globalisation");
+                            mNewNote.setSubject(mSubjectSelected);
+                            mNewNote.setLevel(mLevelSelected);
+                            mNewNote.setTopic(mTopicET.getText().toString());
                             mNewNote.setNotesData(notesData);
                             mNewNote.saveInBackground();
                         } else {
-                            Toast.makeText(getActivity(), "A non-PNG file was picked/no file was picked", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "No file was picked!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
