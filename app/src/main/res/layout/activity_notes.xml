@@ -19,6 +19,35 @@
             android:text="@string/notes_str"
             android:id="@+id/addNewNotesBT"/>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/addNewNotesBT"
+            android:id="@+id/linearLayout">
+
+            <Spinner
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/levelSpinner"/>
+
+            <Spinner
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/subjectSpinner" />
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/topicsListView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout" />
+
     </RelativeLayout>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/drawer_list"

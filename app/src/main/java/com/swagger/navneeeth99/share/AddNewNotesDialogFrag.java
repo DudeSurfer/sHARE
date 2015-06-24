@@ -57,12 +57,12 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (notesData != null) {
-                            Toast.makeText(getActivity(), "A PNG file was picked", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "A PNG/doc/docx file was picked", Toast.LENGTH_SHORT).show();
                             Notes mNewNote = new Notes();
                             mNewNote.setContributor(ParseUser.getCurrentUser().getObjectId());
-                            mNewNote.setSubject("Physics");
-                            mNewNote.setLevel("Secondary 3");
-                            mNewNote.setTopic("Kinematics");
+                            mNewNote.setSubject("SS");
+                            mNewNote.setLevel("Secondary 4");
+                            mNewNote.setTopic("Globalisation");
                             mNewNote.setNotesData(notesData);
                             mNewNote.saveInBackground();
                         } else {
@@ -95,12 +95,39 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                 e.printStackTrace();
             }
             if (inputData != null){
-                mUploadNotesBT.setText(objectUri.toString());
                 String mimeType = getActivity().getContentResolver().getType(objectUri);
                 if (mimeType.equals("image/png")) {
                     notesData = new ParseFile("notes.png", inputData);
+                    mUploadNotesBT.setText("image - png");
+                } else if (mimeType.equals("application/msword")) {
+                    notesData = new ParseFile("notes.doc", inputData);
+                    mUploadNotesBT.setText("word doc");
+                } else if (mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+                    notesData = new ParseFile("notes.docx", inputData);
+                    mUploadNotesBT.setText("word docx");
+                } else if (mimeType.equals("image/jpeg")) {
+                    notesData = new ParseFile("notes.jpg", inputData);
+                    mUploadNotesBT.setText("image - jpg");
+                } else if (mimeType.equals("video/x-msvideo")) {
+                    notesData = new ParseFile("notes.avi", inputData);
+                    mUploadNotesBT.setText(objectUri.toString());
+                } else if (mimeType.equals("video/mp4")) {
+                    notesData = new ParseFile("notes.mp4", inputData);
+                    mUploadNotesBT.setText(objectUri.toString());
+                } else if (mimeType.equals("video/mpeg")) {
+                    notesData = new ParseFile("notes.mpg", inputData);
+                    mUploadNotesBT.setText(objectUri.toString());
+                } else if (mimeType.equals("audio/mp4")) {
+                    notesData = new ParseFile("notes.mp4a", inputData);
+                    mUploadNotesBT.setText("audio - mp4a");
+                } else if (mimeType.equals("audio/mpeg")) {
+                    notesData = new ParseFile("notes.mpga", inputData);
+                    mUploadNotesBT.setText("audio - mpeg");
+                } else if (mimeType.equals("application/pdf")) {
+                    notesData = new ParseFile("notes.pdf", inputData);
+                    mUploadNotesBT.setText("pdf");
                 } else {
-                    Toast.makeText(getActivity(), "This is NOT an image :(", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "This filetype is not supported :(", Toast.LENGTH_SHORT).show();
                 }
             }
         }
