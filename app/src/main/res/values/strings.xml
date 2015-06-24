@@ -41,5 +41,10 @@
     <string name="title_activity_notes">NotesActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="notes_str">Add new notes</string>
+    <string name="aim">sHARE aims to help you in your studies and education.</string>
+    <string name="motto">\"Fast and steady wins the race\". \nAs students, we have discovered that constant studying and revision is the best way to keep on top of your work. Thus, we have carefully crafted sHARE, which aims to ease constant revision.</string>
+    <string name="help">Tap the rabbit at the top left or swipe right from the left side of the screen to navigate.
+        \n\nRefer to our FAQ for any other help. </string>
+    <string name="belief">At Nyb we believe in the power of note-sharing and discussion. Enjoy.</string>
 
 </resources>

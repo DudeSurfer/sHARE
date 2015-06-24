@@ -59,8 +59,9 @@ public class BaseActivity extends ActionBarActivity {
                 } else if (mSelectedDest.equals("Chat")) {
                     Intent intent = new Intent(mContext, IndivChatActivity.class);
                     startActivity(intent);
-
-
+                } else if (mSelectedDest.equals("Help")){
+                    Intent intent = new Intent(mContext, HelpActivity.class);
+                    startActivity(intent);
                 }
             }
         });

@@ -123,7 +123,7 @@ public class SignUpActivity extends Activity {
                     newUser.put("profilepic", file);
                     newUser.saveInBackground();
                     // Success!
-                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, HelpActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

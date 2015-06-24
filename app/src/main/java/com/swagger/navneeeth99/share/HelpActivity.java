@@ -1,17 +1,71 @@
 package com.swagger.navneeeth99.share;
 
-import android.support.v7.app.ActionBarActivity;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import com.parse.ParseUser;
 
 
-public class HelpActivity extends ActionBarActivity {
+public class HelpActivity extends BaseActivity {
+
+    boolean isHide = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser!=null){
+            super.onCreateDrawer();
+        }
+        final LinearLayout mFirstText = (LinearLayout) findViewById(R.id.firstHelp);
+        final Button mHideButton = (Button) findViewById(R.id.hideButton);
+        mHideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isHide){
+                    // Prepare the View for the animation
+                    mFirstText.setVisibility(View.VISIBLE);
+                    mFirstText.setAlpha(0.0f);
+                    // Start the animation
+                    mFirstText.animate()
+                            .scaleY(1)
+                            .translationY(0)
+                            .alpha(1.0f)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    mFirstText.setAlpha(1.0f);
+                                    mFirstText.setVisibility(View.VISIBLE);
+                                }
+                            });
+                    isHide = false;
+                    mHideButton.setText("Hide");
+                } else {
+                    mFirstText.animate()
+                            .scaleY(0)
+                            .translationY(-mFirstText.getHeight()/2)
+                            .alpha(0.0f)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    mFirstText.setAlpha(0.0f);
+                                    mFirstText.setVisibility(View.GONE);
+                                }
+                            });
+                    isHide = true;
+                    mHideButton.setText("Unhide");
+                }
+            }
+        });
     }
 
 
