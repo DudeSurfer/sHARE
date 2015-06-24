@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array
-        name="navdrawer_items">
+    <string-array name="navdrawer_items">
         <item>Home</item>
         <item>Profile</item>
         <item>Notes</item>
-        <item>CEP get shrekt</item>
-        <item>Us</item>
         <item>Settings</item>
         <item>Help</item>
     </string-array>
+
+    <string-array name="level_list">
+        <item>Secondary 1</item>
+        <item>Secondary 2</item>
+        <item>Secondary 3</item>
+        <item>Secondary 4</item>
+        <item>Junior College 1</item>
+        <item>Junior College 2</item>
+    </string-array>
+
+    <string-array name="subject_list">
+        <item>English</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+        <item>Lower Sec Math</item>
+        <item>Mathematics 1</item>
+        <item>Mathematics 2</item>
+        <item>History</item>
+        <item>Geography</item>
+        <item>Social Studies</item>
+        <item>Chinese</item>
+        <item>Tamil</item>
+        <item>Malay</item>
+    </string-array>
+
 </resources>
