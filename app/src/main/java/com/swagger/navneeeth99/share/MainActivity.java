@@ -22,16 +22,15 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreateDrawer();
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser==null){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
-            super.onCreateDrawer();
+            //Do everything else here
         }
-
-
     }
 
 
