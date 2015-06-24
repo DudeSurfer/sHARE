@@ -46,11 +46,11 @@ public class Notes extends ParseObject {
         put("notesData", mTopic);
     }
 
-    public ParseUser getContributor(){
-        return getParseUser("poster");
+    public String getContributor(){
+        return getString("poster");
     }
 
-    public void setContributor(ParseUser mPoster){
+    public void setContributor(String mPoster){
         put("poster", mPoster);
     }
 }
