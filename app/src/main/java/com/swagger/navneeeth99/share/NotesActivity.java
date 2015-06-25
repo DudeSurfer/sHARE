@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,21 +64,63 @@ public class NotesActivity extends BaseActivity {
             final ListView mNotesDisplay = (ListView)findViewById(R.id.notesListView);
             ParseQueryAdapter mNotesAdapter = new CustomNotesAdapter(this, mChosenSubject, mChosenLevel);
             mNotesDisplay.setAdapter(mNotesAdapter);
-
             mNotesDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     ParseFile mCurrentNotesPF = ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesData();
                     Uri uri = Uri.parse(mCurrentNotesPF.getUrl());
-                    Intent Newintent = new Intent(Intent.ACTION_VIEW);
-                    Newintent.setDataAndType(uri,((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesType());
-                    Newintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    try {
-                        startActivity(Newintent);
-                    }
-                    catch (ActivityNotFoundException e){
-                        Toast.makeText(NotesActivity.this, "No application available to view file", Toast.LENGTH_LONG).show();
-                    }
+                    final long myDownloadReference;
+                    BroadcastReceiver receiverDownloadComplete;
+                    final DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadManager.Request request = new DownloadManager.Request(uri);
+                    request.setVisibleInDownloadsUi(true);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, mCurrentNotesPF.getName());
+                    request.allowScanningByMediaScanner();
+                    myDownloadReference = downloadManager.enqueue(request);
+                    IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+                    receiverDownloadComplete = new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                            long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                            if (myDownloadReference == reference){
+                                DownloadManager.Query query = new DownloadManager.Query();
+                                query.setFilterById(reference);
+                                Cursor cursor = downloadManager.query(query);
+                                cursor.moveToFirst();
+                                int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                                Uri downloadedUri2 = Uri.parse(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
+                                Log.d("java", downloadedUri2.toString());
+                                Log.d("java", ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesType());
+                                switch (status){
+                                    case DownloadManager.STATUS_SUCCESSFUL:
+                                        File file = new File(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
+
+                                        if (file.exists()) {
+                                            Uri path = Uri.fromFile(file);
+                                            Log.d("java", path.toString());
+                                            Log.d("java", NotesActivity.getMimeType(path.toString()));
+                                            Intent newIntent = new Intent(Intent.ACTION_VIEW);
+                                            newIntent.setDataAndType(path, NotesActivity.getMimeType(path.toString()));
+                                            newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                                            try {
+                                                startActivity(newIntent);
+                                            }
+                                            catch (ActivityNotFoundException e) {
+                                                Toast.makeText(NotesActivity.this, "No Application Available to View file", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
+                                        break;
+                                    case DownloadManager.STATUS_FAILED:
+                                        Toast.makeText(NotesActivity.this, "Download failed", Toast.LENGTH_LONG).show();
+                                        break;
+                                }
+                                cursor.close();
+                            }
+                        }
+                    };
+                    registerReceiver(receiverDownloadComplete, intentFilter);
 
                 }
             });
@@ -164,5 +208,13 @@ public class NotesActivity extends BaseActivity {
             return v;
         }
 
+    }
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
     }
 }
