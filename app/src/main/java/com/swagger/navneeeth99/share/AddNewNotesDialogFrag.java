@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,16 +12,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +40,7 @@ import java.util.ArrayList;
 public class AddNewNotesDialogFrag extends DialogFragment{
     public static int PICKFILE_REQUEST_CODE = 1;
     private ParseFile notesData;
+    private String mFileType;
     private Button mUploadNotesBT;
     private String mLevelSelected;
     private String mSubjectSelected;
@@ -108,6 +115,7 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                             mNewNote.setLevel(mLevelSelected);
                             mNewNote.setTopic(mTopicET.getText().toString());
                             mNewNote.setNotesData(notesData);
+                            mNewNote.setNotesType(mFileType);
                             mNewNote.saveInBackground();
                         } else {
                             Toast.makeText(getActivity(), "No file was picked!", Toast.LENGTH_SHORT).show();
@@ -142,33 +150,43 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                 String mimeType = getActivity().getContentResolver().getType(objectUri);
                 if (mimeType.equals("image/png")) {
                     notesData = new ParseFile("notes.png", inputData);
+                    mFileType = "Picture (png)";
                     mUploadNotesBT.setText("image - png");
                 } else if (mimeType.equals("application/msword")) {
                     notesData = new ParseFile("notes.doc", inputData);
+                    mFileType = "Document (doc)";
                     mUploadNotesBT.setText("word doc");
                 } else if (mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
                     notesData = new ParseFile("notes.docx", inputData);
+                    mFileType = "Document (docx)";
                     mUploadNotesBT.setText("word docx");
                 } else if (mimeType.equals("image/jpeg")) {
                     notesData = new ParseFile("notes.jpg", inputData);
+                    mFileType = "Picture (jpg)";
                     mUploadNotesBT.setText("image - jpg");
                 } else if (mimeType.equals("video/x-msvideo")) {
                     notesData = new ParseFile("notes.avi", inputData);
+                    mFileType = "Video (avi)";
                     mUploadNotesBT.setText(objectUri.toString());
                 } else if (mimeType.equals("video/mp4")) {
                     notesData = new ParseFile("notes.mp4", inputData);
+                    mFileType = "Video (mp4)";
                     mUploadNotesBT.setText(objectUri.toString());
                 } else if (mimeType.equals("video/mpeg")) {
                     notesData = new ParseFile("notes.mpg", inputData);
+                    mFileType = "Video (mpg)";
                     mUploadNotesBT.setText(objectUri.toString());
                 } else if (mimeType.equals("audio/mp4")) {
                     notesData = new ParseFile("notes.mp4a", inputData);
                     mUploadNotesBT.setText("audio - mp4a");
+                    mFileType = "Audio (mp4a)";
                 } else if (mimeType.equals("audio/mpeg")) {
                     notesData = new ParseFile("notes.mpga", inputData);
+                    mFileType = "Audio (mpga)";
                     mUploadNotesBT.setText("audio - mpeg");
                 } else if (mimeType.equals("application/pdf")) {
                     notesData = new ParseFile("notes.pdf", inputData);
+                    mFileType = "Document (pdf)";
                     mUploadNotesBT.setText("pdf");
                 } else {
                     Toast.makeText(getActivity(), "This filetype is not supported :(", Toast.LENGTH_SHORT).show();

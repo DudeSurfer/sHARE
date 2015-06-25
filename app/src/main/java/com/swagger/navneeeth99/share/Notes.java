@@ -53,4 +53,12 @@ public class Notes extends ParseObject {
     public void setContributor(String mPoster){
         put("poster", mPoster);
     }
+
+    public String getNotesType(){
+        return getString("type");
+    }
+
+    public void setNotesType(String mNotesType){
+        put("type", mNotesType);
+    }
 }

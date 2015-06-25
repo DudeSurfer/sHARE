@@ -46,5 +46,6 @@
     <string name="help">Tap the rabbit at the top left or swipe right from the left side of the screen to navigate.
         \n\nRefer to our FAQ for any other help. </string>
     <string name="belief">At Nyb we believe in the power of note-sharing and discussion. Enjoy.</string>
+    <string name="type_str">Type indicator</string>
 
 </resources>
