@@ -48,5 +48,6 @@
     <string name="belief">At Nyb we believe in the power of note-sharing and discussion. Enjoy.</string>
     <string name="type_str">Type indicator</string>
     <string name="title_activity_discussion">DiscussionActivity</string>
+    <string name="sample_email">abc@gmail.com</string>
 
 </resources>

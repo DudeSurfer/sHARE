@@ -24,6 +24,7 @@ public class LoginActivity extends Activity {
     private EditText mPasswordET;
     private Button mLoginButton;
     private Button mSignUpButton;
+    private Button mForgotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class LoginActivity extends Activity {
         mPasswordET = (EditText) findViewById(R.id.passwordEditText);
         mLoginButton = (Button) findViewById(R.id.loginButton);
         mSignUpButton = (Button) findViewById(R.id.signUpButton);
+        mForgotButton = (Button)findViewById(R.id.forgotButton);
+
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +70,12 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+            }
+        });
+        mForgotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                (new ResetPasswordDialogFrag()).show(getFragmentManager(), "Reset Password");
             }
         });
 
