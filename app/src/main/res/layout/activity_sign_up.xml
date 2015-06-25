@@ -1,159 +1,188 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    android:gravity="center"
     android:background="#efdecb"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.nyanch.newtwork.SignUpActivity">
-
-    <ImageView
-        android:scaleType="fitCenter"
-        android:src="@drawable/welcome"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/face"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/ic_face_white_24dp"
-        android:layout_width="40sp"
-        android:layout_height="40sp"/>
-    <EditText
-        android:layout_toEndOf="@id/face"
-        android:layout_toRightOf="@id/face"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/usernameEditText"
-        android:inputType="text"
-        android:textSize="20sp"
-        android:padding="15dp"
-        android:hint="username" />
-</RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/add"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/ic_email_white_24dp"
-        android:layout_width="40sp"
-        android:layout_height="40sp"/>
-    <EditText
-        android:layout_toEndOf="@id/add"
-        android:layout_toRightOf="@id/add"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/emailEditText"
-        android:inputType="textEmailAddress"
-        android:textSize="20sp"
-        android:padding="15dp"
-        android:hint="email address" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/lock"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/ic_lock_white_24dp"
-        android:layout_width="40sp"
-        android:layout_height="40sp"/>
-    <EditText
-        android:layout_toEndOf="@id/lock"
-        android:layout_toRightOf="@id/lock"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/passwordEditText"
-        android:inputType="textPassword"
-        android:textSize="20sp"
-        android:padding="15dp"
-        android:hint="password" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/lock2"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_width="40sp"
-        android:layout_height="40sp"/>
-
-    <EditText
-        android:layout_toEndOf="@id/lock2"
-        android:layout_toRightOf="@id/lock2"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/confirmPasswordEditText"
-        android:inputType="textPassword"
-        android:textSize="20sp"
-        android:padding="15dp"
-        android:hint="confirm password" />
-</RelativeLayout>
-    <Button
-        android:background="#e06750"
-        android:textColor="#ffffffff"
-        android:text="sign up"
-        android:textSize="20sp"
-        android:textAllCaps="false"
-        android:id="@+id/submitButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
 
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="already a member?"
-            android:textSize="20sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:scaleType="fitCenter"
+            android:src="@drawable/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/face"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_face_white_24dp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"/>
+            <EditText
+                android:layout_toEndOf="@id/face"
+                android:layout_toRightOf="@id/face"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/usernameEditText"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:hint="username" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/add"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_email_white_24dp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"/>
+            <EditText
+                android:layout_toEndOf="@id/add"
+                android:layout_toRightOf="@id/add"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailEditText"
+                android:inputType="textEmailAddress"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:hint="email address" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/school"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_school_white_24dp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"/>
+            <EditText
+                android:layout_toEndOf="@id/school"
+                android:layout_toRightOf="@id/school"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/schoolEditText"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:hint="school" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/lock"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_lock_white_24dp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"/>
+            <EditText
+                android:layout_toEndOf="@id/lock"
+                android:layout_toRightOf="@id/lock"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/passwordEditText"
+                android:inputType="textPassword"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:hint="password" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/lock2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_width="40sp"
+                android:layout_height="40sp"/>
 
+            <EditText
+                android:layout_toEndOf="@id/lock2"
+                android:layout_toRightOf="@id/lock2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirmPasswordEditText"
+                android:inputType="textPassword"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:hint="confirm password" />
+        </RelativeLayout>
         <Button
-            android:background="#d13d25"
+            android:background="#e06750"
             android:textColor="#ffffffff"
-            android:text="back to login"
+            android:text="sign up"
             android:textSize="20sp"
             android:textAllCaps="false"
-            android:id="@+id/cancelButton"
+            android:id="@+id/submitButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="already a member?"
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:background="#d13d25"
+                android:textColor="#ffffffff"
+                android:text="back to login"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:id="@+id/cancelButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

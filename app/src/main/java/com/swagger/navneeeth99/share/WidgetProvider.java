@@ -52,7 +52,7 @@ public class WidgetProvider extends AppWidgetProvider {
             Intent addIntent = new Intent(context, NotesActivity.class);
             // This is needed to make this intent different from its previous intents
             addIntent.setData(Uri.parse("tel:/"+ (int)System.currentTimeMillis()));
-            addIntent.putExtra("ADD NOTES", true);
+            addIntent.putExtra(NotesActivity.WIDGET_ADD_NOTES, true);
             // Creating a pending intent, which will be invoked when the user
             // clicks on the widget
             PendingIntent pendingAddIntent = PendingIntent.getActivity(context, 0,

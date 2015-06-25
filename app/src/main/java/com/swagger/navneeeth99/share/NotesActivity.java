@@ -41,9 +41,11 @@ import java.io.FileOutputStream;
 
 
 public class NotesActivity extends BaseActivity {
+    public static String WIDGET_ADD_NOTES = "nyb.add_notes.widget";
     private Button mNewNotesButton;
     private String mChosenSubject;
     private String mChosenLevel;
+    private boolean isAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class NotesActivity extends BaseActivity {
         super.onCreateDrawer();
 
         if (ParseUser.getCurrentUser() != null) {
+
             mNewNotesButton = (Button) findViewById(R.id.addNewNotesBT);
             mNewNotesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -159,6 +162,13 @@ public class NotesActivity extends BaseActivity {
 
                 }
             });
+
+            Intent intent = getIntent();
+            isAdd = intent.getBooleanExtra(WIDGET_ADD_NOTES, false);
+            if (isAdd) {
+                AddNewNotesDialogFrag postDF = new AddNewNotesDialogFrag();
+                postDF.show(NotesActivity.this.getFragmentManager(), "save data");
+            }
         }
     }
 
