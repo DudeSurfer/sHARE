@@ -53,6 +53,9 @@ public class BaseActivity extends ActionBarActivity {
                 } else if (mSelectedDest.equals("Notes")){
                     Intent intent = new Intent(mContext, NotesActivity.class);
                     startActivity(intent);
+                } else if (mSelectedDest.equals("Discussion")){
+                    Intent intent = new Intent(mContext, DiscussionActivity.class);
+                    startActivity(intent);
                 } else if (mSelectedDest.equals("Settings")){
                     Intent intent = new Intent(mContext, SettingsActivity.class);
                     startActivity(intent);
@@ -172,6 +175,8 @@ public class BaseActivity extends ActionBarActivity {
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_account_circle_white_24dp));
             } else if (mSelectedDest.equals("Notes")){
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_description_white_24dp));
+            } else if (mSelectedDest.equals("Discussion")) {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_chat_white_24dp));
             } else if (mSelectedDest.equals("Help")){
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_white_24dp));
             } else if (mSelectedDest.equals("Settings")){

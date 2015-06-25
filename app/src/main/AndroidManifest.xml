@@ -40,6 +40,7 @@
         <activity
             android:name=".IndivChatActivity"
             android:label="@string/title_activity_indiv_chat"
+            android:parentActivityName=".DiscussionActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -59,11 +60,31 @@
         </activity>
         <activity
             android:name=".NotesActivity"
-            android:label="@string/title_activity_notes" >
+            android:label="@string/title_activity_notes"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <receiver android:name=".WidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <!-- linking up xml file of appwidget-provider to AppWidgetProvider -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widgetinfo" />
+        </receiver>
+
+        <!-- <service -->
+        <!-- android:name="com.swagger.navneeeth99.share.WidgetService" -->
+        <!-- android:permission="android.permission.BIND_REMOTEVIEWS" /> -->
+        <activity
+            android:name=".DiscussionActivity"
+            android:label="@string/title_activity_discussion" >
         </activity>
     </application>
 

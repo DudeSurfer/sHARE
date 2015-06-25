@@ -45,7 +45,7 @@
         <!-- Surface View Start -->
         <LinearLayout
             android:padding="10dp"
-            android:background="#ffeeeeee"
+            android:background="#efdecb"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -63,7 +63,7 @@
                     android:id="@+id/messageTV"
                     android:layout_margin="5dp"
                     android:background="@drawable/message_white"
-                    android:textColor="#ff27733f"
+                    android:textColor="#d13d25"
                     android:padding="10dp"
                     android:gravity="center"
                     android:textSize="20sp"
