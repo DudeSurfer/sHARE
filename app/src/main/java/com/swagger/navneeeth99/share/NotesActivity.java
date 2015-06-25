@@ -2,8 +2,12 @@ package com.swagger.navneeeth99.share;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +20,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
@@ -49,7 +56,23 @@ public class NotesActivity extends BaseActivity {
             mNotesDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                    ParseFile mCurrentNote = ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesData();
+                    mCurrentNote.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] bytes, ParseException e) {
+                            if (e == null) {
+                                //Uri mObjUri = Base64.encodeToString(bytes, Base64.NO_WRAP);
+                                Uri mObjUri = System.Text.Encoding.UTF8.GetString(bytes);
+                            } else {
+                                // something went wrong
+                            }
+                        }
+                    });
+                    String mCurrentNoteType = ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesType();
+                    if (mCurrentNoteType.equals("Document (pdf)")){
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDat()
+                    }
                 }
             });
 
