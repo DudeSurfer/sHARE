@@ -1,13 +1,19 @@
 package com.swagger.navneeeth99.share;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -26,6 +33,9 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class NotesActivity extends BaseActivity {
@@ -55,26 +65,22 @@ public class NotesActivity extends BaseActivity {
 
             mNotesDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ParseFile mCurrentNote = ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesData();
-                    mCurrentNote.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] bytes, ParseException e) {
-                            if (e == null) {
-                                //Uri mObjUri = Base64.encodeToString(bytes, Base64.NO_WRAP);
-                                Uri mObjUri = System.Text.Encoding.UTF8.GetString(bytes);
-                            } else {
-                                // something went wrong
-                            }
-                        }
-                    });
-                    String mCurrentNoteType = ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesType();
-                    if (mCurrentNoteType.equals("Document (pdf)")){
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDat()
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    ParseFile mCurrentNotesPF = ((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesData();
+                    Uri uri = Uri.parse(mCurrentNotesPF.getUrl());
+                    Intent Newintent = new Intent(Intent.ACTION_VIEW);
+                    Newintent.setDataAndType(uri,((Notes)mNotesDisplay.getItemAtPosition(position)).getNotesType());
+                    Newintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    try {
+                        startActivity(Newintent);
                     }
+                    catch (ActivityNotFoundException e){
+                        Toast.makeText(NotesActivity.this, "No application available to view file", Toast.LENGTH_LONG).show();
+                    }
+
                 }
             });
+
 
             Spinner mLevelSpinner = (Spinner)findViewById(R.id.levelSpinner);
             ArrayAdapter<CharSequence> mLevelAdapter = ArrayAdapter.createFromResource(this, R.array.level_list, android.R.layout.simple_spinner_item);

@@ -150,43 +150,43 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                 String mimeType = getActivity().getContentResolver().getType(objectUri);
                 if (mimeType.equals("image/png")) {
                     notesData = new ParseFile("notes.png", inputData);
-                    mFileType = "Picture (png)";
+                    mFileType = mimeType;
                     mUploadNotesBT.setText("image - png");
                 } else if (mimeType.equals("application/msword")) {
                     notesData = new ParseFile("notes.doc", inputData);
-                    mFileType = "Document (doc)";
+                    mFileType = mimeType;
                     mUploadNotesBT.setText("word doc");
                 } else if (mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
                     notesData = new ParseFile("notes.docx", inputData);
-                    mFileType = "Document (docx)";
+                    mFileType = mimeType;
                     mUploadNotesBT.setText("word docx");
                 } else if (mimeType.equals("image/jpeg")) {
                     notesData = new ParseFile("notes.jpg", inputData);
-                    mFileType = "Picture (jpg)";
+                    mFileType = mimeType;
                     mUploadNotesBT.setText("image - jpg");
                 } else if (mimeType.equals("video/x-msvideo")) {
                     notesData = new ParseFile("notes.avi", inputData);
-                    mFileType = "Video (avi)";
-                    mUploadNotesBT.setText(objectUri.toString());
+                    mFileType = mimeType;
+                    mUploadNotesBT.setText("avi video");
                 } else if (mimeType.equals("video/mp4")) {
                     notesData = new ParseFile("notes.mp4", inputData);
-                    mFileType = "Video (mp4)";
-                    mUploadNotesBT.setText(objectUri.toString());
+                    mFileType = mimeType;
+                    mUploadNotesBT.setText("mp4 video");
                 } else if (mimeType.equals("video/mpeg")) {
                     notesData = new ParseFile("notes.mpg", inputData);
-                    mFileType = "Video (mpg)";
-                    mUploadNotesBT.setText(objectUri.toString());
+                    mFileType = mimeType;
+                    mUploadNotesBT.setText("mpeg video");
                 } else if (mimeType.equals("audio/mp4")) {
                     notesData = new ParseFile("notes.mp4a", inputData);
                     mUploadNotesBT.setText("audio - mp4a");
-                    mFileType = "Audio (mp4a)";
+                    mFileType = mimeType;
                 } else if (mimeType.equals("audio/mpeg")) {
                     notesData = new ParseFile("notes.mpga", inputData);
-                    mFileType = "Audio (mpga)";
+                    mFileType = mimeType;
                     mUploadNotesBT.setText("audio - mpeg");
                 } else if (mimeType.equals("application/pdf")) {
                     notesData = new ParseFile("notes.pdf", inputData);
-                    mFileType = "Document (pdf)";
+                    mFileType = mimeType;
                     mUploadNotesBT.setText("pdf");
                 } else {
                     Toast.makeText(getActivity(), "This filetype is not supported :(", Toast.LENGTH_SHORT).show();
