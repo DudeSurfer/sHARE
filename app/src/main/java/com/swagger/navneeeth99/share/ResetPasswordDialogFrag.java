@@ -39,7 +39,8 @@ public class ResetPasswordDialogFrag extends DialogFragment {
 //                                    Toast.makeText(getActivity(),"Email sent!", Toast.LENGTH_SHORT).show();
                                 } else if (e.getCode() == ParseException.INVALID_EMAIL_ADDRESS){
 //                                    Toast.makeText(getActivity(),"This email is invalid.", Toast.LENGTH_SHORT).show();
-
+                                } else if (e.getCode() == ParseException.EMAIL_NOT_FOUND){
+//                                    Toast.makeText(getActivity(),"This email is not in our database.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
