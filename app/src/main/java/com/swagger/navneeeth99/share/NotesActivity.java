@@ -195,14 +195,14 @@ public class NotesActivity extends BaseActivity {
             mNotesContributor.setText(notesObject.getContributor());
 
             ImageView mNotesTypeIndicator = (ImageView)v.findViewById(R.id.typeIndicatorIV);
-            if (notesObject.getNotesType().contains("Image")){
+            if (notesObject.getNotesType().contains("image")){
                 mNotesTypeIndicator.setImageResource(R.drawable.ic_collections_black_48dp);
-            } else if (notesObject.getNotesType().contains("Document")){
+            } else if (notesObject.getNotesType().contains("application")){
                 mNotesTypeIndicator.setImageResource(R.drawable.ic_document_icon);
-            } else if (notesObject.getNotesType().contains("Audio")){
-                mNotesTypeIndicator.setImageResource(R.drawable.ic_audio);
-            } else if (notesObject.getNotesType().contains("Video")){
-                mNotesTypeIndicator.setImageResource(R.drawable.ic_video);
+            } else if (notesObject.getNotesType().contains("audio")){
+                mNotesTypeIndicator.setImageResource(R.drawable.ic_audio_icon);
+            } else if (notesObject.getNotesType().contains("video")){
+                mNotesTypeIndicator.setImageResource(R.drawable.ic_video_icon);
             }
 
             return v;
