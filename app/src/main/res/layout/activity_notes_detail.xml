@@ -21,6 +21,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Topic"
+                android:textStyle="bold"
+                android:textColor="#d13d25"
                 android:id="@+id/TopicTV"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
@@ -43,39 +45,42 @@
                 android:padding="10dp"/>
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-            <ImageButton
+            <Button
+                android:textSize="20sp"
+                android:background="#0000"
+                android:textColor="#d13d25"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/UpvoteBT"
-                android:background="@drawable/ic_thumbsup"/>
+                android:text="+1"/>
 
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Upvotes"
-                android:id="@+id/UpvoteTV" />
-
-            <ImageButton
+            <Button
+                android:layout_toEndOf="@id/UpvoteBT"
+                android:layout_toRightOf="@id/UpvoteBT"
+                android:textSize="20sp"
+                android:background="#0000"
+                android:textColor="#d13d25"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/DownvoteBT"
-                android:background="@drawable/ic_thumbsdown"/>
+                android:text="-1"/>
+
             <TextView
-                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="#d13d25"
+                android:textSize="20sp"
+                android:text="Votes: "
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Downvotes"
-                android:id="@+id/DownvoteTV" />
-        </LinearLayout>
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
         <ListView
             android:layout_weight="7"

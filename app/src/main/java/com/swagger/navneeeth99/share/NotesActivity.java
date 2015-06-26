@@ -53,9 +53,8 @@ public class NotesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-        super.onCreateDrawer();
-
         if (ParseUser.getCurrentUser() != null) {
+            super.onCreateDrawer();
 
             mNewNotesButton = (Button) findViewById(R.id.addNewNotesBT);
             mNewNotesButton.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +175,9 @@ public class NotesActivity extends BaseActivity {
                 AddNewNotesDialogFrag postDF = new AddNewNotesDialogFrag();
                 postDF.show(NotesActivity.this.getFragmentManager(), "save data");
             }
+        } else {
+            Intent intent = new Intent(NotesActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
     }
 

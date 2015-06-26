@@ -50,5 +50,6 @@
     <string name="type_str">Type indicator</string>
     <string name="title_activity_discussion">DiscussionActivity</string>
     <string name="sample_email">abc@gmail.com</string>
+    <string name="title_activity_school">SchoolActivity</string>
 
 </resources>

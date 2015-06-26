@@ -82,7 +82,7 @@
                 android:src="@drawable/ic_school_white_24dp"
                 android:layout_width="40sp"
                 android:layout_height="40sp"/>
-            <EditText
+            <Spinner
                 android:layout_toEndOf="@id/school"
                 android:layout_toRightOf="@id/school"
                 android:layout_centerVertical="true"
@@ -90,7 +90,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/schoolEditText"
+                android:id="@+id/schoolSpinner"
                 android:inputType="text"
                 android:textSize="20sp"
                 android:padding="15dp"

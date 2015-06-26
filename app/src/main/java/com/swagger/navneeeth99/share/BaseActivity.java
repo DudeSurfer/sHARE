@@ -44,27 +44,47 @@ public class BaseActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String mSelectedDest = (String) mLeftNavList.getItemAtPosition(position);
-                if (mSelectedDest.equals("Home")){
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
-                } else if (mSelectedDest.equals("Profile")){
-                    Intent intent = new Intent(mContext, ProfileActivity.class);
-                    startActivity(intent);
-                } else if (mSelectedDest.equals("Notes")){
-                    Intent intent = new Intent(mContext, NotesActivity.class);
-                    startActivity(intent);
-                } else if (mSelectedDest.equals("Discussion")){
-                    Intent intent = new Intent(mContext, DiscussionActivity.class);
-                    startActivity(intent);
-                } else if (mSelectedDest.equals("Settings")){
-                    Intent intent = new Intent(mContext, SettingsActivity.class);
-                    startActivity(intent);
-                } else if (mSelectedDest.equals("Chat")) {
-                    Intent intent = new Intent(mContext, IndivChatActivity.class);
-                    startActivity(intent);
-                } else if (mSelectedDest.equals("Help")){
-                    Intent intent = new Intent(mContext, HelpActivity.class);
-                    startActivity(intent);
+                switch (mSelectedDest) {
+                    case "Home": {
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "Profile": {
+                        Intent intent = new Intent(mContext, ProfileActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "Notes": {
+                        Intent intent = new Intent(mContext, NotesActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "Discussion": {
+                        Intent intent = new Intent(mContext, DiscussionActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "School": {
+                        Intent intent = new Intent(mContext, SchoolActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "Settings": {
+                        Intent intent = new Intent(mContext, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "Chat": {
+                        Intent intent = new Intent(mContext, IndivChatActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case "Help": {
+                        Intent intent = new Intent(mContext, HelpActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
                 }
             }
         });
@@ -169,20 +189,31 @@ public class BaseActivity extends ActionBarActivity {
             ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
             String mSelectedDest = values[position];
             textView.setText(values[position]);
-            if (mSelectedDest.equals("Home")){
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_white_24dp));
-            } else if (mSelectedDest.equals("Profile")){
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_account_circle_white_24dp));
-            } else if (mSelectedDest.equals("Notes")){
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_description_white_24dp));
-            } else if (mSelectedDest.equals("Discussion")) {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_chat_white_24dp));
-            } else if (mSelectedDest.equals("Help")){
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_white_24dp));
-            } else if (mSelectedDest.equals("Settings")){
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_settings_white_24dp));
-            } else {
-                imageView.setVisibility(View.GONE);
+            switch (mSelectedDest) {
+                case "Home":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_white_24dp));
+                    break;
+                case "Profile":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_account_circle_white_24dp));
+                    break;
+                case "Notes":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_description_white_24dp));
+                    break;
+                case "Discussion":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_chat_white_24dp));
+                    break;
+                case "School":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_school_white));
+                    break;
+                case "Help":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_white_24dp));
+                    break;
+                case "Settings":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_settings_white_24dp));
+                    break;
+                default:
+                    imageView.setVisibility(View.GONE);
+                    break;
             }
 
             return rowView;
