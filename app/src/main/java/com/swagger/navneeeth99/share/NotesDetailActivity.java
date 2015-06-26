@@ -113,7 +113,7 @@ public class NotesDetailActivity extends BaseActivity {
                                                     startActivity(newIntent);
                                                 }
                                                 catch (ActivityNotFoundException e) {
-                                                    Toast.makeText(NotesDetailActivity.this, "No Application Available to View file", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(NotesDetailActivity.this, "No application available to view file!", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
@@ -130,10 +130,20 @@ public class NotesDetailActivity extends BaseActivity {
                     }
                 });
 
-                mDownloadButton.setOnClickListener(new View.OnClickListener() {
+                mPreviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        ParseFile mCurrentNotesPF = (mChosenNote.getNotesData());
+                        Uri PreviewUri = Uri.parse(mCurrentNotesPF.getUrl());
+                        Intent PreviewIntent = new Intent(Intent.ACTION_VIEW);
+                        PreviewIntent.setDataAndType(PreviewUri, mChosenNote.getNotesType());
+                        PreviewIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        try {
+                            startActivity(PreviewIntent);
+                        }
+                        catch (ActivityNotFoundException e) {
+                            Toast.makeText(NotesDetailActivity.this, "No application available to view file!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
