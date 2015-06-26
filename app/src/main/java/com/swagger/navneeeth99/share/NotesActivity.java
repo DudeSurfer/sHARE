@@ -41,7 +41,6 @@ import java.io.FileOutputStream;
 
 
 public class NotesActivity extends BaseActivity {
-    public static final int DISPLAY_NOTES_DETAILS = 555;
     public static final String DISPLAY_DETAIL = ".display";
     public static String WIDGET_ADD_NOTES = "nyb.add_notes.widget";
     private Button mNewNotesButton;
