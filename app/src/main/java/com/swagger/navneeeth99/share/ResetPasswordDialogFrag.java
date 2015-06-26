@@ -35,18 +35,24 @@ public class ResetPasswordDialogFrag extends DialogFragment {
                 .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String mResetEmail = mResetEmailET.getText().toString();
-                        ParseUser.requestPasswordResetInBackground(mResetEmail, new RequestPasswordResetCallback() {
-                            @Override
-                            public void done(com.parse.ParseException e) {
-                                if (e == null) {
-                                    Toast.makeText(mContext,"Email sent!", Toast.LENGTH_LONG).show();
-                                } else if (e.getCode() == ParseException.INVALID_EMAIL_ADDRESS){
-                                    Toast.makeText(mContext,"This email is invalid.", Toast.LENGTH_LONG).show();
-                                } else if (e.getCode() == ParseException.EMAIL_NOT_FOUND){
-                                    Toast.makeText(mContext,"This email is not in our database.", Toast.LENGTH_LONG).show();
+                        if (mResetEmail==null){
+                            mResetEmailET.setError("Please input an email!");
+                        } else{
+                            ParseUser.requestPasswordResetInBackground(mResetEmail, new RequestPasswordResetCallback() {
+                                @Override
+                                public void done(com.parse.ParseException e) {
+                                    if (e == null) {
+                                        Toast.makeText(mContext,"Email sent!", Toast.LENGTH_LONG).show();
+                                    } else if (e.getCode() == ParseException.INVALID_EMAIL_ADDRESS){
+                                        Toast.makeText(mContext,"This email is invalid.", Toast.LENGTH_LONG).show();
+                                    } else if (e.getCode() == ParseException.EMAIL_NOT_FOUND){
+                                        Toast.makeText(mContext,"This email is not in our database.", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

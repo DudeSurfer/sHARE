@@ -26,12 +26,14 @@
                 android:id="@+id/TopicTV"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:paddingBottom="30dp"
                 android:paddingRight="20dp"
-                android:layout_toLeftOf="@+id/FiletypeTV"
+                android:gravity="center"
+                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:gravity="center"/>
+                android:layout_toLeftOf="@+id/FiletypeTV"
+                android:layout_toStartOf="@+id/FiletypeTV" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,10 +41,28 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="File Type"
                 android:id="@+id/FiletypeTV"
-                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_preview"
+                android:id="@+id/previewButton"
+                android:layout_below="@+id/FiletypeTV"
+                android:layout_toLeftOf="@+id/downloadButton"
+                android:layout_toStartOf="@+id/downloadButton" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_download"
+                android:layout_below="@+id/FiletypeTV"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:padding="10dp"/>
+                android:id="@+id/downloadButton"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -60,24 +80,44 @@
                 android:id="@+id/UpvoteBT"
                 android:text="+1"/>
 
+<<<<<<< HEAD
             <Button
                 android:layout_toEndOf="@id/UpvoteBT"
                 android:layout_toRightOf="@id/UpvoteBT"
                 android:textSize="20sp"
                 android:background="#0000"
                 android:textColor="#d13d25"
+=======
+            <TextView
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Upvotes"
+                android:id="@+id/UpvoteTV" />
+
+            <ImageButton
+>>>>>>> 5536c1270492c7865afa20acbc7e9823817b2a47
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/DownvoteBT"
                 android:text="-1"/>
 
             <TextView
+<<<<<<< HEAD
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:textColor="#d13d25"
                 android:textSize="20sp"
                 android:text="Votes: "
+=======
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+>>>>>>> 5536c1270492c7865afa20acbc7e9823817b2a47
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
