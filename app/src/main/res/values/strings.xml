@@ -12,6 +12,7 @@
     <string name="title_activity_indiv_chat">IndivChatActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_notes_detail">NotesDetailActivity</string>
     <string name="pw">password</string>
     <string name="email">email address</string>
     <string name="name">username</string>

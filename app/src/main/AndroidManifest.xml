@@ -67,6 +67,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".NotesDetailActivity"
+            android:label="@string/title_activity_notes_detail"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" >
