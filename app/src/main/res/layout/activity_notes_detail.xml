@@ -80,44 +80,27 @@
                 android:id="@+id/UpvoteBT"
                 android:text="+1"/>
 
-<<<<<<< HEAD
             <Button
                 android:layout_toEndOf="@id/UpvoteBT"
                 android:layout_toRightOf="@id/UpvoteBT"
                 android:textSize="20sp"
                 android:background="#0000"
                 android:textColor="#d13d25"
-=======
-            <TextView
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Upvotes"
-                android:id="@+id/UpvoteTV" />
-
-            <ImageButton
->>>>>>> 5536c1270492c7865afa20acbc7e9823817b2a47
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/DownvoteBT"
                 android:text="-1"/>
 
             <TextView
-<<<<<<< HEAD
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:textColor="#d13d25"
                 android:textSize="20sp"
                 android:text="Votes: "
-=======
                 android:padding="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
->>>>>>> 5536c1270492c7865afa20acbc7e9823817b2a47
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>

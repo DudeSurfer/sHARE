@@ -36,12 +36,10 @@ public class NotesDetailActivity extends BaseActivity {
     private String mNotesTopic;
     private TextView mTopicTV;
     private TextView mFiletypeTV;
-    private TextView mUpvoteTV;
-    private TextView mDownvoteTV;
     private ImageButton mPreviewButton;
     private ImageButton mDownloadButton;
-    private ImageButton mUpvoteBT;
-    private ImageButton mDownvoteBT;
+    private Button mUpvoteBT;
+    private Button mDownvoteBT;
     private ListView mCommentsLV;
     private EditText mNewCommentET;
 
@@ -55,10 +53,8 @@ public class NotesDetailActivity extends BaseActivity {
         mFiletypeTV = (TextView)findViewById(R.id.FiletypeTV);
         mPreviewButton = (ImageButton)findViewById(R.id.previewButton);
         mDownloadButton = (ImageButton)findViewById(R.id.downloadButton);
-        mUpvoteBT = (ImageButton)findViewById(R.id.UpvoteBT);
-        mUpvoteTV = (TextView)findViewById(R.id.UpvoteTV);
-        mDownvoteBT = (ImageButton)findViewById(R.id.DownvoteBT);
-        mDownvoteTV = (TextView)findViewById(R.id.DownvoteTV);
+        mUpvoteBT = (Button)findViewById(R.id.UpvoteBT);
+        mDownvoteBT = (Button)findViewById(R.id.DownvoteBT);
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
         mNewCommentET = (EditText)findViewById(R.id.NewCommentET);
 
