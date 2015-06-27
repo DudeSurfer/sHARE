@@ -177,11 +177,15 @@ public class NotesDetailActivity extends BaseActivity {
                     public void onClick(View v) {
                         if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())) {
                             mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                            mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
                         } else if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                            mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                            mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
                         } else {
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                            mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
                         }
                     }
                 });
@@ -191,6 +195,15 @@ public class NotesDetailActivity extends BaseActivity {
                     public void onClick(View v) {
                         if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())) {
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
+                            mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                        } else if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())){
+                            mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                            mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
+                            mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                            mDownvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                        } else {
+                            mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
+                            mDownvoteBT.setTextColor(Color.parseColor("#FFD15099"));
                         }
                     }
                 });

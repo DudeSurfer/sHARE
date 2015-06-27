@@ -20,11 +20,11 @@ public class Comments extends ParseObject{
         put("ctitle", mCTitle);
     }
 
-    public int getCStars() {
-        return getInt("stars");
+    public float getCStars() {
+        return (float)get("stars");
     }
 
-    public void setCStars(int mStars) {
+    public void setCStars(float mStars) {
         put("stars", mStars);
     }
 

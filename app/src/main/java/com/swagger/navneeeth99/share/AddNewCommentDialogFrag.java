@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
@@ -26,7 +27,7 @@ public class AddNewCommentDialogFrag extends DialogFragment {
         mLL = (LinearLayout) mLayoutInflater.inflate(R.layout.fragment_newcomment, null);
 
         final EditText mCommentTitleET = (EditText)mLL.findViewById(R.id.commentTitleET);
-        final EditText mCommentStarsET = (EditText)mLL.findViewById(R.id.commentStarsET);
+        final RatingBar mCommentStarsRB = (RatingBar)mLL.findViewById(R.id.commentStarsRB);
         final EditText mCommentBodyET = (EditText)mLL.findViewById(R.id.commentBodyET);
         final String mCommentContributor = ParseUser.getCurrentUser().getUsername();
 
@@ -49,7 +50,7 @@ public class AddNewCommentDialogFrag extends DialogFragment {
                         newComment.setCContributor(mCommentContributor);
                         newComment.setCTitle(mCommentTitleET.getText().toString());
                         newComment.setCContent(mCommentBodyET.getText().toString());
-                        newComment.setCStars(Integer.parseInt(mCommentStarsET.getText().toString()));
+                        newComment.setCStars(mCommentStarsRB.getRating());
                         newComment.saveInBackground();
                         mChosenNote.addNotesComments(newComment);
                         mChosenNote.saveInBackground();
