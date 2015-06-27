@@ -32,11 +32,11 @@ public class Friends extends ParseObject {
         put("FriendsWith", mFriendsWith);
     }
 
-    public void addNotesDownvoter(String mNewFriend) {
+    public void addFriendsWith(String mNewFriend) {
         add("FriendsWith", mNewFriend);
     }
 
-    public void removeNotesDownvoter(String mByeFriend) {
+    public void removeFriendsWith(String mByeFriend) {
         ArrayList<String> toRemove = new ArrayList<>();
         toRemove.add(mByeFriend);
         removeAll("FriendsWith", toRemove);
