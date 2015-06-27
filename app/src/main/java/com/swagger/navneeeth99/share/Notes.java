@@ -49,32 +49,64 @@ public class Notes extends ParseObject {
         put("notesData", mTopic);
     }
 
-    public String getContributor(){
+    public String getContributor() {
         return getString("poster");
     }
 
-    public void setContributor(String mPoster){
+    public void setContributor(String mPoster) {
         put("poster", mPoster);
     }
 
-    public String getNotesType(){
+    public String getNotesType() {
         return getString("type");
     }
 
-    public void setNotesType(String mNotesType){
+    public void setNotesType(String mNotesType) {
         put("type", mNotesType);
     }
 
     public ArrayList<Comments> getNotesComments() {
-        List<Comments> mComments= getList("comments");
+        List<Comments> mComments = getList("comments");
         return new ArrayList<>(mComments);
     }
 
-    public void setNotesComments(ArrayList<Comments> mNoteComments){
+    public void setNotesComments(ArrayList<Comments> mNoteComments) {
         put("comments", mNoteComments);
     }
 
-    public void addNotesComments(Comments mComment){
+    public void addNotesComments(Comments mComment) {
         add("comments", mComment);
     }
+
+    public ArrayList<String> getNotesDownvoters() {
+        List<String> mNotesDownvoters = getList("NotesDownvoters");
+        return new ArrayList<>(mNotesDownvoters);
+    }
+
+    public void addNotesDownvoter(String mNotesDownvoter) {
+        add("NotesDownvoters", mNotesDownvoter);
+    }
+
+    public void removeNotesDownvoter(String mNotesDownvoter) {
+        ArrayList<String> toRemove = new ArrayList<>();
+        toRemove.add(mNotesDownvoter);
+        removeAll("NotesDownvoters", toRemove);
+    }
+
+
+    public ArrayList<String> getNotesUpvoters() {
+        List<String> mNotesUpvoters = getList("NotesUpvoters");
+        return new ArrayList<>(mNotesUpvoters);
+    }
+
+    public void addNotesUpvoter(String mNotesUpvoter) {
+        add("NotesUpvoters", mNotesUpvoter);
+    }
+
+    public void removeNotesUpvoter(String mNotesUpvoter) {
+        ArrayList<String> toRemove = new ArrayList<>();
+        toRemove.add(mNotesUpvoter);
+        removeAll("NotesUpvoters", toRemove);
+    }
+
 }

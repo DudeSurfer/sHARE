@@ -81,20 +81,18 @@
                 android:text="+1"/>
 
             <Button
-                android:layout_toEndOf="@id/UpvoteBT"
-                android:layout_toRightOf="@id/UpvoteBT"
                 android:textSize="20sp"
                 android:background="#0000"
                 android:textColor="#d13d25"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/DownvoteBT"
-                android:text="-1"/>
+                android:text="-1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <TextView
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:textColor="#d13d25"
                 android:textSize="20sp"
                 android:text="Votes: "
@@ -102,7 +100,10 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/votesTV"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <ListView

@@ -52,6 +52,7 @@ public class AddNewCommentDialogFrag extends DialogFragment {
                         newComment.setCStars(Integer.parseInt(mCommentStarsET.getText().toString()));
                         newComment.saveInBackground();
                         mChosenNote.addNotesComments(newComment);
+                        mChosenNote.saveInBackground();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,6 +27,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
 
 import java.io.File;
 import java.util.List;
@@ -59,6 +61,7 @@ public class NotesDetailActivity extends BaseActivity {
         mDownvoteBT = (Button)findViewById(R.id.DownvoteBT);
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
         mNewCommentBT = (Button)findViewById(R.id.NewCommentBT);
+
 
         ParseQuery<Notes> query = ParseQuery.getQuery("Notes");
         query.whereEqualTo("objectId", getIntent().getStringExtra(NotesActivity.DISPLAY_DETAIL));
@@ -161,6 +164,36 @@ public class NotesDetailActivity extends BaseActivity {
                 } else{
                     Toast.makeText(NotesDetailActivity.this, "mChosenNoteComm is null", Toast.LENGTH_SHORT).show();
                 }
+
+                if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
+                    mDownvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                }
+                if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())){
+                    mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                }
+
+                mUpvoteBT.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())) {
+                            mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                        } else if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
+                            mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
+                            mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                        } else {
+                            mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
+                        }
+                    }
+                });
+
+                mDownvoteBT.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())) {
+                            mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
+                        }
+                    }
+                });
             }
         });
     }
