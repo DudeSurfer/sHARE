@@ -49,7 +49,7 @@
             android:textStyle="bold"
             android:gravity="center_horizontal"
             android:textSize="24sp"
-            android:text="Oops. That's strange. There's no one in your school. Contact an adminstrator?" >
+            android:text="Oops. You have no friends. Go to the school section to add some!" >
         </TextView>
     </RelativeLayout>
     <!-- The navigation drawer -->

@@ -39,7 +39,7 @@
             android:textStyle="bold"
             android:gravity="center_horizontal"
             android:textSize="24sp"
-            android:text="Oops. That's strange. There's no one in your school. Contact an adminstrator?" >
+            android:text="Oops. That's strange. There's no one from your school. Contact an adminstrator?" >
         </TextView>
 
     </RelativeLayout>

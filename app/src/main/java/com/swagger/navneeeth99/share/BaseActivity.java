@@ -162,9 +162,6 @@ public class BaseActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if (mNavToggle.onOptionsItemSelected(item)) {
             return true;
