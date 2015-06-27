@@ -41,7 +41,7 @@ public class NotesDetailActivity extends BaseActivity {
     private Button mUpvoteBT;
     private Button mDownvoteBT;
     private ListView mCommentsLV;
-    private EditText mNewCommentET;
+    private Button mNewCommentBT;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -56,7 +56,7 @@ public class NotesDetailActivity extends BaseActivity {
         mUpvoteBT = (Button)findViewById(R.id.UpvoteBT);
         mDownvoteBT = (Button)findViewById(R.id.DownvoteBT);
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
-        mNewCommentET = (EditText)findViewById(R.id.NewCommentET);
+        mNewCommentBT = (Button)findViewById(R.id.NewCommentBT);
 
         ParseQuery<Notes> query = ParseQuery.getQuery("Notes");
         query.whereEqualTo("objectId", getIntent().getStringExtra(NotesActivity.DISPLAY_DETAIL));
@@ -73,7 +73,7 @@ public class NotesDetailActivity extends BaseActivity {
                         Uri uri = Uri.parse(mCurrentNotesPF.getUrl());
                         final long myDownloadReference;
                         BroadcastReceiver receiverDownloadComplete;
-                        final DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+                        final DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                         DownloadManager.Request request = new DownloadManager.Request(uri);
                         request.setVisibleInDownloadsUi(true);
                         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, mCurrentNotesPF.getName());
@@ -84,7 +84,7 @@ public class NotesDetailActivity extends BaseActivity {
                             @Override
                             public void onReceive(Context context, Intent intent) {
                                 long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                                if (myDownloadReference == reference){
+                                if (myDownloadReference == reference) {
                                     DownloadManager.Query query = new DownloadManager.Query();
                                     query.setFilterById(reference);
                                     Cursor cursor = downloadManager.query(query);
@@ -93,7 +93,7 @@ public class NotesDetailActivity extends BaseActivity {
                                     Uri downloadedUri2 = Uri.parse(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
                                     Log.d("java", downloadedUri2.toString());
                                     Log.d("java", (mChosenNote.getNotesType()));
-                                    switch (status){
+                                    switch (status) {
                                         case DownloadManager.STATUS_SUCCESSFUL:
                                             File file = new File(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME)));
 
@@ -107,8 +107,7 @@ public class NotesDetailActivity extends BaseActivity {
 
                                                 try {
                                                     startActivity(newIntent);
-                                                }
-                                                catch (ActivityNotFoundException e) {
+                                                } catch (ActivityNotFoundException e) {
                                                     Toast.makeText(NotesDetailActivity.this, "No application available to view file!", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -140,6 +139,17 @@ public class NotesDetailActivity extends BaseActivity {
                         catch (ActivityNotFoundException e) {
                             Toast.makeText(NotesDetailActivity.this, "No application available to view file!", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+
+                mNewCommentBT.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AddNewCommentDialogFrag newCommentDialogFrag = new AddNewCommentDialogFrag();
+                        Bundle args = new Bundle();
+                        args.putString("id", mChosenNote.getObjectId());
+                        newCommentDialogFrag.setArguments(args);
+                        newCommentDialogFrag.show(NotesDetailActivity.this.getFragmentManager(), "add comment");
                     }
                 });
             }

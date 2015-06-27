@@ -5,6 +5,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by navneeeth99 on 24/6/15.
  */
@@ -60,5 +63,17 @@ public class Notes extends ParseObject {
 
     public void setNotesType(String mNotesType){
         put("type", mNotesType);
+    }
+
+    public ArrayList<Comments> getNotesComments() {
+        return new ArrayList<>(getList("comments"));
+    }
+
+    public void setNotesComments(ArrayList<Comments> mNoteComments){
+        put("comments", mNoteComments);
+    }
+
+    public void addNotesComments(Comments mComment){
+        add("comments", mComment);
     }
 }

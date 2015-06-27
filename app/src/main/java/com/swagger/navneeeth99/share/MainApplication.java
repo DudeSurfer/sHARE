@@ -22,6 +22,7 @@ public class MainApplication extends Application {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
         ParseObject.registerSubclass(Notes.class);
+        ParseObject.registerSubclass(Comments.class);
         Parse.initialize(this, "ofVu7m2pAWlmIoxq55A2J2t9jG2FPRgQbqBjy5ku", "GT192HrXbktHSExlfHdtwvboSmV1o9ZPJqaNVih3");
     }
 
