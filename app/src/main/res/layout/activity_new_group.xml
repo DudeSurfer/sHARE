@@ -78,16 +78,17 @@
         <Button
             android:background="#d13d25"
             android:textColor="#ffffffff"
-            android:text="hi"
+            android:text="Cancel"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/saveGroup"
             android:background="#d13d25"
             android:textColor="#ffffffff"
-            android:text="hi"
+            android:text="Create"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:layout_width="0dp"

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,15 +20,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 public class BaseActivity extends ActionBarActivity {
-    private String[] mNavChoices;
+    private List<String> mNavChoices;
     private DrawerLayout mLeftNavDrawer;
     private android.support.v4.app.ActionBarDrawerToggle mNavToggle;
     private ListView mLeftNavList;
@@ -35,7 +45,24 @@ public class BaseActivity extends ActionBarActivity {
 
     protected void onCreateDrawer () {
         mContext = this;
-        mNavChoices = getResources().getStringArray(R.array.navdrawer_items);
+        mNavChoices = new LinkedList<String>(Arrays.asList(getResources().getStringArray(R.array.navdrawer_items)));
+        ParseQuery chatQuery = new ParseQuery("GroupChat");
+        chatQuery.whereEqualTo("members", ParseUser.getCurrentUser().getUsername());
+        chatQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List list, ParseException e) {
+                if (list != null) {
+                    Log.d("java", "list ain't null");
+                    Log.d("java", list.toString());
+                    for (int i=0; i<list.size(); i++){
+                        Log.d("java", list.get(i).toString());
+                        ParseObject mCurrentChat = (ParseObject)list.get(i);
+                        Log.d("java", mCurrentChat.get("title").toString());
+                        mNavChoices.add(mCurrentChat.get("title").toString());
+                    }
+                }
+            }
+        });
         mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
         mLeftNavList = (ListView)findViewById(R.id.drawer_list);
         final View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);
@@ -187,9 +214,9 @@ public class BaseActivity extends ActionBarActivity {
 
     public class MySimpleArrayAdapter extends ArrayAdapter<String> {
         private final Context context;
-        private final String[] values;
+        private final List<String> values;
 
-        public MySimpleArrayAdapter(Context context, String[] values) {
+        public MySimpleArrayAdapter(Context context, List<String> values) {
             super(context, -1, values);
             this.context = context;
             this.values = values;
@@ -202,8 +229,8 @@ public class BaseActivity extends ActionBarActivity {
             View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.label);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-            String mSelectedDest = values[position];
-            textView.setText(values[position]);
+            String mSelectedDest = values.get(position);
+            textView.setText(values.get(position));
             switch (mSelectedDest) {
                 case "Home":
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_white_24dp));
