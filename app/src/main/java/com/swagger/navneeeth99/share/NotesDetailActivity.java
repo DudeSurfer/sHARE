@@ -74,7 +74,7 @@ public class NotesDetailActivity extends BaseActivity {
             public void done(Notes notes, ParseException e) {
                 mChosenNote = notes;
                 mTopicTV.setText(mChosenNote.getTopic());
-                mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
 
                 switch(mChosenNote.getNotesType()){
                     case "image/png":{
