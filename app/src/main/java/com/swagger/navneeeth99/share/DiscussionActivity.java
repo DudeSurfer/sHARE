@@ -75,7 +75,8 @@ public class DiscussionActivity extends BaseActivity {
         mNewGrpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DiscussionActivity.this, NewGroupActivity.class);
+                startActivity(intent);
             }
         });
     }
