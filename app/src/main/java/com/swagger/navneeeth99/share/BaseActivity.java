@@ -130,6 +130,11 @@ public class BaseActivity extends ActionBarActivity {
                                 .create()
                                 .show();
                     }
+                    default:
+                        Intent intent = new Intent(mContext, IndivGrpChatActivity.class);
+                        intent.putExtra("title", mSelectedDest);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
