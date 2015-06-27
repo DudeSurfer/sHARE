@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 
 public class NewGroupActivity extends ActionBarActivity {
+    private ArrayList<String> mNewGrpMembers;
+    private ArrayList<String> mAllSchoolmates;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -37,15 +37,16 @@ import java.util.List;
  */
 public class NotesDetailActivity extends BaseActivity {
     private Notes mChosenNote;
-    private String mNotesTopic;
     private TextView mTopicTV;
     private TextView mFiletypeTV;
+    private TextView mVotesTV;
     private ImageButton mPreviewButton;
     private ImageButton mDownloadButton;
     private Button mUpvoteBT;
     private Button mDownvoteBT;
     private ListView mCommentsLV;
     private Button mNewCommentBT;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -61,6 +62,7 @@ public class NotesDetailActivity extends BaseActivity {
         mDownvoteBT = (Button)findViewById(R.id.DownvoteBT);
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
         mNewCommentBT = (Button)findViewById(R.id.NewCommentBT);
+        mVotesTV = (TextView)findViewById(R.id.votesTV);
 
 
         ParseQuery<Notes> query = ParseQuery.getQuery("Notes");
@@ -71,6 +73,7 @@ public class NotesDetailActivity extends BaseActivity {
                 mChosenNote = notes;
                 mTopicTV.setText(mChosenNote.getTopic());
                 mFiletypeTV.setText(notes.getNotesType());
+                mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                 mDownloadButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -130,6 +133,8 @@ public class NotesDetailActivity extends BaseActivity {
                     }
                 });
 
+
+
                 mPreviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -172,20 +177,28 @@ public class NotesDetailActivity extends BaseActivity {
                     mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
                 }
 
+
+
                 mUpvoteBT.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())) {
                             mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                            mChosenNote.saveInBackground();
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         } else if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
-                            mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                            mUpvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mChosenNote.saveInBackground();
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         } else {
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
-                            mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                            mUpvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mChosenNote.saveInBackground();
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         }
                     }
                 });
@@ -196,14 +209,20 @@ public class NotesDetailActivity extends BaseActivity {
                         if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())) {
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                            mChosenNote.saveInBackground();
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         } else if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())){
                             mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
-                            mDownvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                            mDownvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mChosenNote.saveInBackground();
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         } else {
                             mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
-                            mDownvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                            mDownvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mChosenNote.saveInBackground();
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         }
                     }
                 });
