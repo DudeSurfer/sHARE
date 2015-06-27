@@ -90,6 +90,10 @@ public class Notes extends ParseObject {
         return new ArrayList<>(mNotesDownvoters);
     }
 
+    public void setNotesDownvoters(ArrayList<String> mNotesDownvoters){
+        put("NotesDownvoters", mNotesDownvoters);
+    }
+
     public void addNotesDownvoter(String mNotesDownvoter) {
         add("NotesDownvoters", mNotesDownvoter);
     }
@@ -104,6 +108,10 @@ public class Notes extends ParseObject {
     public ArrayList<String> getNotesUpvoters() {
         List<String> mNotesUpvoters = getList("NotesUpvoters");
         return new ArrayList<>(mNotesUpvoters);
+    }
+
+    public void setNotesUpvoters(ArrayList<String> mNotesUpvoters){
+        put("NotesDownvoters", mNotesUpvoters);
     }
 
     public void addNotesUpvoter(String mNotesUpvoter) {
