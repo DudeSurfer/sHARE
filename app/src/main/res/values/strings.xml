@@ -51,5 +51,6 @@
     <string name="title_activity_discussion">DiscussionActivity</string>
     <string name="sample_email">abc@gmail.com</string>
     <string name="title_activity_school">SchoolActivity</string>
+    <string name="title_activity_new_group">NewGroupActivity</string>
 
 </resources>

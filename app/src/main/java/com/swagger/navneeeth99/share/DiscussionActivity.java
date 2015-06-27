@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -69,6 +70,14 @@ public class DiscussionActivity extends BaseActivity {
         });
         mPB.setVisibility(View.VISIBLE);
         fillFriendList();
+
+        Button mNewGrpButton = (Button)findViewById(R.id.newGrpBT);
+        mNewGrpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void fillFriendList(){
