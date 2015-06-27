@@ -50,6 +50,17 @@
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/senderTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/messageTV"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/message_red"
+                    android:textColor="#ffffffff"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
             </RelativeLayout>
 
             <LinearLayout

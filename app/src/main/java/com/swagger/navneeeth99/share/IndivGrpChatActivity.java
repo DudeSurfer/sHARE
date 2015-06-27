@@ -231,6 +231,8 @@ public class IndivGrpChatActivity extends ActionBarActivity {
             }
             else{
                 row = getLayoutInflater().inflate(R.layout.message_from_item, parent, false);
+                TextView mSenderDetail = (TextView)row.findViewById(R.id.senderTV);
+                mSenderDetail.setText("~ " + currentParseObject.getString("fromName"));
             }
             TextView dateTV = (TextView) row.findViewById(R.id.dateTV);
             dateTV.setText(df.format(currentParseObject.getCreatedAt()));
