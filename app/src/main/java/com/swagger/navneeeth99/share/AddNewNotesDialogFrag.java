@@ -111,6 +111,7 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                             Toast.makeText(getActivity(), "A PNG/doc/docx file was picked", Toast.LENGTH_SHORT).show();
                             Notes mNewNote = new Notes();
                             mNewNote.setContributor(ParseUser.getCurrentUser().getObjectId());
+                            mNewNote.setContributorName(ParseUser.getCurrentUser().getUsername());
                             mNewNote.setSubject(mSubjectSelected);
                             mNewNote.setLevel(mLevelSelected);
                             mNewNote.setTopic(mTopicET.getText().toString());

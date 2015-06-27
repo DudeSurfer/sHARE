@@ -34,6 +34,7 @@ public class NotesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        setTitle("Notes");
         if (ParseUser.getCurrentUser() != null) {
             super.onCreateDrawer();
 
@@ -115,11 +116,7 @@ public class NotesActivity extends BaseActivity {
 
             SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
-//            mSearchMenuItem = menu.findItem(R.id.search);
-//            SearchView search = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
             SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
-//            search.setSearchableInfo(manager.getSearchableInfo(
-//                    new ComponentName(getApplicationContext(), SearchResultActivity.class)));
             search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -159,7 +156,7 @@ public class NotesActivity extends BaseActivity {
                 public ParseQuery<Notes> create() {
                     ParseQuery<Notes> query = new ParseQuery<>("Notes");
                     if (ParseUser.getCurrentUser() != null) {
-                        query.whereContains("topic", mStartingString);
+                        query.whereContains("uctopic", mStartingString);
                     }
                     return query;
                 }
@@ -179,7 +176,7 @@ public class NotesActivity extends BaseActivity {
             mNotesTitle.setText(notesObject.getTopic());
 
             TextView mNotesContributor = (TextView)v.findViewById(R.id.contributorTV);
-            mNotesContributor.setText(notesObject.getContributor());
+            mNotesContributor.setText(notesObject.getContributorName());
 
             ImageView mNotesTypeIndicator = (ImageView)v.findViewById(R.id.typeIndicatorIV);
             if (notesObject.getNotesType().contains("image")){
@@ -195,14 +192,5 @@ public class NotesActivity extends BaseActivity {
             return v;
         }
 
-    }
-
-    public static String getMimeType(String url) {
-        String type = null;
-        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        if (extension != null) {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        }
-        return type;
     }
 }

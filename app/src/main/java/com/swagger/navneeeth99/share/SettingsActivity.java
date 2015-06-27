@@ -13,5 +13,6 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         super.onCreateDrawer();
+        setTitle("Settings");
     }
 }

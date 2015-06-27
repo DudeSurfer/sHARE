@@ -22,6 +22,7 @@ public class HelpActivity extends BaseActivity {
         setContentView(R.layout.activity_help);
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser!=null){
+            setTitle("Help");
             super.onCreateDrawer();
         }
         final LinearLayout mFirstText = (LinearLayout) findViewById(R.id.firstHelp);

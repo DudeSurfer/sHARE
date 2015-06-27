@@ -48,6 +48,8 @@ public class DiscussionActivity extends BaseActivity {
         setContentView(R.layout.activity_discussion);
         super.onCreateDrawer();
 
+        setTitle("Discussion");
+
         mFriends = new ArrayList<>();
         mMessages = new ArrayList<>();
         mDates = new ArrayList<>();

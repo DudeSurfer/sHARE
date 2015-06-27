@@ -47,6 +47,8 @@ public class SchoolActivity extends BaseActivity {
         setContentView(R.layout.activity_school);
         super.onCreateDrawer();
 
+        setTitle(ParseUser.getCurrentUser().getString("school"));
+
         mUsers = new ArrayList<>();
 
         UserLV = (ListView) findViewById(R.id.UsersLV);
@@ -78,7 +80,6 @@ public class SchoolActivity extends BaseActivity {
                     Log.e("ERROR", ParseUser.getCurrentUser().getString("school") + " does not exist.");
                 } else {
                     mSchoolMembers.addAll((List) object.getList("members"));
-                    Toast.makeText(SchoolActivity.this, mSchoolMembers.toString(), Toast.LENGTH_SHORT).show();
                     ParseQuery<ParseUser> query1 = ParseUser.getQuery();
                     query1.setLimit(1000);
                     query1.orderByAscending("lowerUsername");
@@ -87,7 +88,6 @@ public class SchoolActivity extends BaseActivity {
                         public void done(List<ParseUser> results, ParseException e) {
                             if (e == null) {
                                 try {
-                                    Toast.makeText(SchoolActivity.this, results.toString(), Toast.LENGTH_SHORT).show();
                                     mUsers.clear();
                                     mUsers.addAll(results);
                                     mUsers.remove(ParseUser.getCurrentUser());

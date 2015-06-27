@@ -39,7 +39,10 @@ public class Notes extends ParseObject {
 
     public void setTopic(String mTopic) {
         put("topic", mTopic);
+        put("uctopic", mTopic.toLowerCase());
     }
+
+    public String getUCTopic(){ return getString("uctopic");}
 
     public ParseFile getNotesData() {
         return getParseFile("notesData");
@@ -56,6 +59,10 @@ public class Notes extends ParseObject {
     public void setContributor(String mPoster) {
         put("poster", mPoster);
     }
+
+    public String getContributorName() { return getString("posterName");}
+
+    public void setContributorName (String mPosterName) { put ("posterName", mPosterName);}
 
     public String getNotesType() {
         return getString("type");

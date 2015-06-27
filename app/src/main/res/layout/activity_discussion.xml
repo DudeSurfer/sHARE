@@ -40,7 +40,7 @@
         android:textStyle="bold"
         android:gravity="center_horizontal"
         android:textSize="24sp"
-        android:text="@string/no_friend" >
+        android:text="Oops. That's strange. There's no one in your school. Contact an adminstrator?" >
     </TextView>
 </RelativeLayout>
     <!-- The navigation drawer -->
