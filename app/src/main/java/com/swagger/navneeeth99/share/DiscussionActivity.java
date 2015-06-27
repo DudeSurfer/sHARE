@@ -90,7 +90,6 @@ public class DiscussionActivity extends BaseActivity {
             public void done(List<ParseUser> results, ParseException e) {
                 if (e == null) {
                     try {
-                        Toast.makeText(DiscussionActivity.this, results.toString(), Toast.LENGTH_SHORT).show();
                         mFriends.clear();
                         mFriends.addAll(results);
                         Toast.makeText(DiscussionActivity.this, "List loaded.", Toast.LENGTH_SHORT).show();
