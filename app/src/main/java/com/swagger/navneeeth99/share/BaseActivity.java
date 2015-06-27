@@ -1,6 +1,7 @@
 package com.swagger.navneeeth99.share;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -84,6 +85,23 @@ public class BaseActivity extends ActionBarActivity {
                         Intent intent = new Intent(mContext, HelpActivity.class);
                         startActivity(intent);
                         break;
+                    }
+                    case "Logout": {
+                        new CustomDialog.Builder(BaseActivity.this)
+                                .setTitle("Are you sure?")
+                                .setMessage("You are logging out.")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        ParseUser.logOut();
+                                        Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                                .create()
+                                .show();
                     }
                 }
             }
@@ -210,6 +228,9 @@ public class BaseActivity extends ActionBarActivity {
                     break;
                 case "Settings":
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_settings_white_24dp));
+                    break;
+                case "Logout":
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_exit_to_app_white_24dp));
                     break;
                 default:
                     imageView.setVisibility(View.GONE);

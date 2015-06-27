@@ -2,6 +2,8 @@ package com.swagger.navneeeth99.share;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +29,7 @@ public class HelpActivity extends BaseActivity {
         }
         final LinearLayout mFirstText = (LinearLayout) findViewById(R.id.firstHelp);
         final Button mHideButton = (Button) findViewById(R.id.hideButton);
+        final Button mContactButton = (Button) findViewById(R.id.contactButton);
         mHideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +68,15 @@ public class HelpActivity extends BaseActivity {
                     isHide = true;
                     mHideButton.setText("Unhide");
                 }
+            }
+        });
+        mContactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "navneeth.k50@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "sHARE Question: ");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
             }
         });
     }

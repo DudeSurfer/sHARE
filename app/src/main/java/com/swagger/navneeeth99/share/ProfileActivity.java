@@ -49,7 +49,7 @@ public class ProfileActivity extends BaseActivity {
         super.onCreateDrawer();
 
         setTitle(ParseUser.getCurrentUser().getUsername());
-        mLogoutButton = (Button) findViewById(R.id.logOutButton);
+//        mLogoutButton = (Button) findViewById(R.id.logOutButton);
         mCameraButton = (ImageButton) findViewById(R.id.cameraButton);
         mGalleryButton = (ImageButton) findViewById(R.id.galleryButton);
         mStatusButton = (ImageButton) findViewById(R.id.statusButton);
@@ -76,26 +76,26 @@ public class ProfileActivity extends BaseActivity {
             }});
 
 
-        mLogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new CustomDialog.Builder(ProfileActivity.this)
-                        .setTitle("Are you sure?")
-                        .setMessage("You are logging out.")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                ParseUser.logOut();
-                                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                })
-                        .create()
-                        .show();
-            }
-        });
+//        mLogoutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new CustomDialog.Builder(ProfileActivity.this)
+//                        .setTitle("Are you sure?")
+//                        .setMessage("You are logging out.")
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                ParseUser.logOut();
+//                                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+//                                startActivity(intent);
+//                            }
+//                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int whichButton) {
+//                    }
+//                })
+//                        .create()
+//                        .show();
+//            }
+//        });
 
         mStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override

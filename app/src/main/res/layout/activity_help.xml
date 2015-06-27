@@ -77,6 +77,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <Button
+            android:background="#e06750"
+            android:textColor="#ffffffff"
+            android:text="Questions? Contact us."
+            android:layout_margin="10dp"
+            android:id="@+id/contactButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/drawer_list"

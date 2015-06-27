@@ -88,16 +88,16 @@
             android:layout_height="wrap_content"/>
 
 
-        <Button
-            android:layout_marginTop="40dp"
-            android:background="#d13d25"
-            android:textColor="#ffffffff"
-            android:text="logout"
-            android:textSize="20sp"
-            android:textAllCaps="false"
-            android:id="@+id/logOutButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+        <!--<Button-->
+            <!--android:layout_marginTop="40dp"-->
+            <!--android:background="#d13d25"-->
+            <!--android:textColor="#ffffffff"-->
+            <!--android:text="logout"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:id="@+id/logOutButton"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content" />-->
 
     </LinearLayout>
 

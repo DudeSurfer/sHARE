@@ -88,13 +88,13 @@ public class UserProfileActivity extends Activity {
                     startActivity(intent);
                 }
             });
-            mFriendButton.setText("unfriend this newt.");
+            mFriendButton.setText("unfriend me!");
             mFriendButton.setOnClickListener(new View.OnClickListener() {
                                                  @Override
                                                  public void onClick(View v) {
                                                      new CustomDialog.Builder(UserProfileActivity.this)
                                                              .setTitle("You sure?")
-                                                             .setMessage("You are unfriending this newt.")
+                                                             .setMessage("You are unfriending.")
                                                              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                                  public void onClick(DialogInterface dialog, int whichButton) {
                                                                      try {
@@ -124,7 +124,7 @@ public class UserProfileActivity extends Activity {
                                                  public void onClick(View v) {
                                                      new CustomDialog.Builder(UserProfileActivity.this)
                                                              .setTitle("You sure?")
-                                                             .setMessage("You are friending this newt.")
+                                                             .setMessage("You are friending.")
                                                              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                                  public void onClick(DialogInterface dialog, int whichButton) {
 
