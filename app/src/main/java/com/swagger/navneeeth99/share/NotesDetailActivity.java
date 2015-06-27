@@ -46,6 +46,7 @@ public class NotesDetailActivity extends BaseActivity {
     private Button mDownvoteBT;
     private ListView mCommentsLV;
     private Button mNewCommentBT;
+    private ImageButton mReportButton;
 
 
     @Override
@@ -63,6 +64,7 @@ public class NotesDetailActivity extends BaseActivity {
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
         mNewCommentBT = (Button)findViewById(R.id.NewCommentBT);
         mVotesTV = (TextView)findViewById(R.id.votesTV);
+        mReportButton = (ImageButton)findViewById(R.id.reportBT);
 
 
         ParseQuery<Notes> query = ParseQuery.getQuery("Notes");
@@ -224,6 +226,20 @@ public class NotesDetailActivity extends BaseActivity {
                             mChosenNote.saveInBackground();
                             mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         }
+                    }
+                });
+
+                mReportButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!mChosenNote.getReporters().contains(ParseUser.getCurrentUser().getUsername())){
+                            mChosenNote.addReporters(ParseUser.getCurrentUser().getUsername());
+                            Toast.makeText(NotesDetailActivity.this,"Report sent!\nAdmins will review this note.",Toast.LENGTH_LONG).show();
+                            mChosenNote.saveInBackground();
+                        } else {
+                            Toast.makeText(NotesDetailActivity.this,"Report has already been sent!",Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 });
             }

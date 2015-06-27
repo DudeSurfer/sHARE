@@ -119,6 +119,7 @@ public class AddNewNotesDialogFrag extends DialogFragment{
                             mNewNote.setNotesType(mFileType);
                             mNewNote.setNotesUpvoters(new ArrayList<String>());
                             mNewNote.setNotesDownvoters(new ArrayList<String>());
+                            mNewNote.setReporters(new ArrayList<String>());
                             mNewNote.saveInBackground();
                         } else {
                             Toast.makeText(getActivity(), "No file was picked!", Toast.LENGTH_SHORT).show();
