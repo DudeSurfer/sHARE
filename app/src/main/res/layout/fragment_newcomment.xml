@@ -3,19 +3,29 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter comment title"
-        android:id="@+id/commentTitleET" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Rate this note:"/>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/commentStarsRB" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Write a review:"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:id="@+id/commentStarsET"
-        android:hint="Enter the stars you would rate this stars"
-        android:layout_gravity="center_horizontal" />
+        android:hint="Enter review title"
+        android:id="@+id/commentTitleET" />
 
     <EditText
         android:layout_width="match_parent"
@@ -23,6 +33,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/commentBodyET"
-        android:hint="Enter comment description"
+        android:hint="Enter review description"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
