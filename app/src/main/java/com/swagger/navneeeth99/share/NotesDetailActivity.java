@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +28,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by Benjamin on 26/6/15.
@@ -100,9 +102,9 @@ public class NotesDetailActivity extends BaseActivity {
                                             if (file.exists()) {
                                                 Uri path = Uri.fromFile(file);
                                                 Log.d("java", path.toString());
-                                                Log.d("java", NotesActivity.getMimeType(path.toString()));
+                                                Log.d("java", NotesDetailActivity.getMimeType(path.toString()));
                                                 Intent newIntent = new Intent(Intent.ACTION_VIEW);
-                                                newIntent.setDataAndType(path, NotesActivity.getMimeType(path.toString()));
+                                                newIntent.setDataAndType(path, NotesDetailActivity.getMimeType(path.toString()));
                                                 newIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                                                 try {
@@ -152,11 +154,16 @@ public class NotesDetailActivity extends BaseActivity {
                         newCommentDialogFrag.show(NotesDetailActivity.this.getFragmentManager(), "add comment");
                     }
                 });
+
+                List<Comments> mChosenNoteComm = mChosenNote.getList("comments");
+                if (mChosenNoteComm != null) {
+                    mCommentsLV.setAdapter(new ArrayAdapter<Comments>(NotesDetailActivity.this, android.R.layout.simple_list_item_1, mChosenNoteComm));
+                } else{
+                    Toast.makeText(NotesDetailActivity.this, "mChosenNoteComm is null", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
-
 
     public static String getMimeType(String url) {
         String type = null;

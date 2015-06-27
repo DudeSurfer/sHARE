@@ -66,7 +66,8 @@ public class Notes extends ParseObject {
     }
 
     public ArrayList<Comments> getNotesComments() {
-        return new ArrayList<>(getList("comments"));
+        List<Comments> mComments= getList("comments");
+        return new ArrayList<>(mComments);
     }
 
     public void setNotesComments(ArrayList<Comments> mNoteComments){
