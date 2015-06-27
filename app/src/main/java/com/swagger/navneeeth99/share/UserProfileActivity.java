@@ -36,6 +36,7 @@ public class UserProfileActivity extends Activity {
     private TextView mNameTV;
     private TextView mStatusTV;
     private ParseUser mParseUser;
+    private ArrayList<String> mFriendsWith;
 
 
     @Override
@@ -77,8 +78,16 @@ public class UserProfileActivity extends Activity {
             }
         });
 
-        final List<String> mCurrentFriends = ParseUser.getCurrentUser().getList("friends");
-        if (mCurrentFriends.contains(username)) { //if friends, unfriend.
+        ParseQuery<Friends> friendsQuery = ParseQuery.getQuery("Friends");
+        friendsQuery.whereEqualTo("User", username);
+        friendsQuery.getFirstInBackground(new GetCallback<Friends>() {
+            @Override
+            public void done(Friends friends, ParseException e) {
+                mFriendsWith = friends.getFriendsWith();
+            }
+        });
+
+        if (mFriendsWith.contains(ParseUser.getCurrentUser().getUsername())) { //if friends, unfriend.
             mChatButton.setVisibility(View.VISIBLE);
             mChatButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,7 +97,7 @@ public class UserProfileActivity extends Activity {
                     startActivity(intent);
                 }
             });
-            mFriendButton.setText("unfriend me!");
+            mFriendButton.setText("Unfriend me!");
             mFriendButton.setOnClickListener(new View.OnClickListener() {
                                                  @Override
                                                  public void onClick(View v) {
@@ -98,11 +107,8 @@ public class UserProfileActivity extends Activity {
                                                              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                                  public void onClick(DialogInterface dialog, int whichButton) {
                                                                      try {
-                                                                         if (mCurrentFriends.contains(username)) {
-                                                                             mCurrentFriends.remove(username);
-                                                                             ParseUser.getCurrentUser().put("friends", mCurrentFriends);
-                                                                             removeFriendForOther();
-                                                                             ParseUser.getCurrentUser().saveInBackground();
+                                                                         if (mFriendsWith.contains(username)) {
+                                                                             mFriendsWith.remove(username);
                                                                          } else {
                                                                              Toast.makeText(UserProfileActivity.this, "You are not friends. Oops!", Toast.LENGTH_SHORT).show();
                                                                          }

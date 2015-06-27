@@ -188,6 +188,7 @@ public class SignUpActivity extends Activity {
 
     private void createUser(final String username, String email, final String school, String password) {
         final ParseUser newUser = new ParseUser();
+        final Friends mFriends = new Friends();
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setEmail(email);
@@ -195,6 +196,9 @@ public class SignUpActivity extends Activity {
         newUser.put("lowerUsername", username.toLowerCase());
         newUser.put("status", "This is my status.");
         newUser.put("friends", new ArrayList<String>());
+        mFriends.setUser(username);
+        mFriends.setFriendsWith(new ArrayList<String>());
+        mFriends.saveInBackground();
         ParseQuery query = ParseQuery.getQuery("SchoolItem");
         query.whereEqualTo("name", school);
         query.getFirstInBackground(new GetCallback<ParseObject>() {

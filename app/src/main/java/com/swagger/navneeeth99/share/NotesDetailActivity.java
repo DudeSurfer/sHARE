@@ -241,19 +241,19 @@ public class NotesDetailActivity extends BaseActivity {
                             mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         } else if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
                             mUpvoteBT.setTextColor(Color.parseColor("#FF38B1"));
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         } else {
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mUpvoteBT.setTextColor(Color.parseColor("#FF38B1"));
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         }
                     }
                 });
@@ -272,12 +272,12 @@ public class NotesDetailActivity extends BaseActivity {
                             mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
                             mDownvoteBT.setTextColor(Color.parseColor("#FF38B1"));
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         } else {
                             mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mDownvoteBT.setTextColor(Color.parseColor("#FF38B1"));
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         }
                     }
                 });
