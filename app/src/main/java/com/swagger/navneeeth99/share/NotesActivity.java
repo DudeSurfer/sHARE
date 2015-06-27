@@ -1,22 +1,10 @@
 package com.swagger.navneeeth99.share;
 
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.Settings;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -25,20 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
-
-import java.io.File;
-import java.io.FileOutputStream;
-
 
 public class NotesActivity extends BaseActivity {
     public static final String DISPLAY_DETAIL = ".display";
@@ -47,6 +28,7 @@ public class NotesActivity extends BaseActivity {
     private String mChosenSubject;
     private String mChosenLevel;
     private boolean isAdd;
+    private ListView mNotesDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +46,7 @@ public class NotesActivity extends BaseActivity {
                 }
             });
 
-            final ListView mNotesDisplay = (ListView)findViewById(R.id.notesListView);
+            mNotesDisplay = (ListView)findViewById(R.id.notesListView);
             ParseQueryAdapter mNotesAdapter = new CustomNotesAdapter(this, mChosenSubject, mChosenLevel);
             mNotesDisplay.setAdapter(mNotesAdapter);
             mNotesDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -126,6 +108,35 @@ public class NotesActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_notes, menu);
+
+            SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+//            mSearchMenuItem = menu.findItem(R.id.search);
+//            SearchView search = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
+            SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+//            search.setSearchableInfo(manager.getSearchableInfo(
+//                    new ComponentName(getApplicationContext(), SearchResultActivity.class)));
+            search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(final String query) {
+                    mNotesDisplay.setAdapter(new CustomNotesAdapter(NotesActivity.this, query));
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return true;
+                }
+            });
+
+        return true;
+    }
+
 
 
     public static class CustomNotesAdapter extends ParseQueryAdapter<Notes> {
@@ -137,6 +148,18 @@ public class NotesActivity extends BaseActivity {
                     if (ParseUser.getCurrentUser() != null) {
                         query.whereEqualTo("subject", mChosenSubject);
                         query.whereEqualTo("level", mChosenLevel);
+                    }
+                    return query;
+                }
+            });
+        }
+
+        public CustomNotesAdapter(Context context, final String mStartingString) {
+            super(context, new ParseQueryAdapter.QueryFactory<Notes>() {
+                public ParseQuery<Notes> create() {
+                    ParseQuery<Notes> query = new ParseQuery<>("Notes");
+                    if (ParseUser.getCurrentUser() != null) {
+                        query.whereContains("topic", mStartingString);
                     }
                     return query;
                 }

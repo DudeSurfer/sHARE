@@ -8,3 +8,5 @@
 .idea/misc.xml
 app/app.iml
 sHARE.iml
+*.db
+app/src/main/res/drawable-hdpi/Thumbs.db
