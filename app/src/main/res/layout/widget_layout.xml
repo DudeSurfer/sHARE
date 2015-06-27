@@ -7,32 +7,26 @@
 
     <LinearLayout
         style= "?android:attr/buttonBarStyle"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            style= "?android:attr/buttonBarButtonStyle"
+        <ImageButton
+            android:background="@null"
+            android:src="@drawable/open_button"
             android:id="@+id/openButton"
-            android:background="#d13d25"
-            android:text="Open sHARE"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="#ffffffff"
-            android:layout_height="wrap_content"/>
+            android:scaleType="fitCenter"
+            android:layout_width="108.75dp"
+            android:layout_height="100dp"/>
 
-        <Button
-            style= "?android:attr/buttonBarButtonStyle"
+        <ImageButton
+            android:background="@null"
+            android:src="@drawable/add_button"
             android:id="@+id/addButton"
-            android:background="#e06750"
-            android:text="Add Notes"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="#ffffffff"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:scaleType="fitCenter"
+            android:layout_width="160.42dp"
+            android:layout_height="100dp"/>
+
 
         </LinearLayout>
 
