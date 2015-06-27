@@ -23,26 +23,26 @@
         android:id="@+id/secondLine"
         android:layout_width="fill_parent"
         android:layout_height="26dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@id/icon"
-        android:layout_toEndOf="@id/icon"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="second line"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_below="@+id/firstLine"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toEndOf="@+id/icon" />
 
     <TextView
         android:id="@+id/firstLine"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/secondLine"
-        android:layout_toRightOf="@id/icon"
         android:text="first line"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_below="@+id/mRB"
+        android:layout_alignLeft="@+id/secondLine"
+        android:layout_alignStart="@+id/secondLine" />
 
     <RatingBar
+        style = "?android:attr/ratingBarStyleSmall"
         android:isIndicator="true"
         android:clickable="false"
         android:layout_toRightOf="@id/icon"
@@ -50,7 +50,6 @@
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/firstLine"
         android:id="@+id/mRB" />
 
 
