@@ -1,7 +1,6 @@
 package com.swagger.navneeeth99.share;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -36,7 +35,8 @@ public class UserProfileActivity extends Activity {
     private TextView mNameTV;
     private TextView mStatusTV;
     private ParseUser mParseUser;
-    private ArrayList<String> mFriendsWith;
+    private Friends mUser;
+    private Friends mUserFriend;
 
 
     @Override
@@ -83,11 +83,20 @@ public class UserProfileActivity extends Activity {
         friendsQuery.getFirstInBackground(new GetCallback<Friends>() {
             @Override
             public void done(Friends friends, ParseException e) {
-                mFriendsWith = friends.getFriendsWith();
+                mUserFriend = friends;
             }
         });
 
-        if (mFriendsWith.contains(ParseUser.getCurrentUser().getUsername())) { //if friends, unfriend.
+        ParseQuery<Friends> userQuery = ParseQuery.getQuery("Friends");
+        userQuery.whereEqualTo("User", ParseUser.getCurrentUser());
+        userQuery.getFirstInBackground(new GetCallback<Friends>() {
+            @Override
+            public void done(Friends friends, ParseException e) {
+                mUser = friends;
+            }
+        });
+
+        if (mUser.getFriendsWith().contains(username)) { //if friends, unfriend.
             mChatButton.setVisibility(View.VISIBLE);
             mChatButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,8 +116,11 @@ public class UserProfileActivity extends Activity {
                                                              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                                  public void onClick(DialogInterface dialog, int whichButton) {
                                                                      try {
-                                                                         if (mFriendsWith.contains(username)) {
-                                                                             mFriendsWith.remove(username);
+                                                                         if (mUser.getFriendsWith().contains(username)) {
+                                                                             mUser.removeFriendsWith(username);
+                                                                             mUserFriend.removeFriendsWith(ParseUser.getCurrentUser().getUsername());
+                                                                             mUser.saveInBackground();
+                                                                             mUserFriend.saveInBackground();
                                                                          } else {
                                                                              Toast.makeText(UserProfileActivity.this, "You are not friends. Oops!", Toast.LENGTH_SHORT).show();
                                                                          }
@@ -135,22 +147,16 @@ public class UserProfileActivity extends Activity {
                                                                  public void onClick(DialogInterface dialog, int whichButton) {
 
                                                                      try {
-                                                                         List<String> mCurrentFriends = ParseUser.getCurrentUser().getList("friends");
-                                                                         if (!mCurrentFriends.contains(username)) {
-                                                                             mCurrentFriends.add(username);
-                                                                             ParseUser.getCurrentUser().put("friends", mCurrentFriends);
-//                                                                         Toast.makeText(UserProfileActivity.this, "adding friends for other", Toast.LENGTH_SHORT).show();
-                                                                             addFriendForOther();
-                                                                             ParseUser.getCurrentUser().saveInBackground();
+                                                                         if (!mUser.getFriendsWith().contains(username)) {
+                                                                             mUser.addFriendsWith(username);
+                                                                             mUserFriend.addFriendsWith(ParseUser.getCurrentUser().getUsername());
+                                                                             mUser.saveInBackground();
+                                                                             mUserFriend.saveInBackground();
                                                                          } else {
                                                                              Toast.makeText(UserProfileActivity.this, "You are already friends!", Toast.LENGTH_LONG).show();
                                                                          }
                                                                      } catch (NullPointerException e2) {
-                                                                         List<String> mCurrentFriends = new ArrayList<>();
-                                                                         mCurrentFriends.add(username);
-                                                                         ParseUser.getCurrentUser().put("friends", mCurrentFriends);
-                                                                         ParseUser.getCurrentUser().saveInBackground();
-                                                                         addFriendForOther();
+
                                                                      }
 
                                                                  }
