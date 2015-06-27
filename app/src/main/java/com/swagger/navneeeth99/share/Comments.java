@@ -1,6 +1,7 @@
 package com.swagger.navneeeth99.share;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 /**
@@ -21,7 +22,11 @@ public class Comments extends ParseObject{
     }
 
     public float getCStars() {
-        return (float)get("stars");
+        try {
+            return fetchIfNeeded().getNumber("stars").floatValue();
+        } catch (ParseException e) {
+            return 2.5f;
+        }
     }
 
     public void setCStars(float mStars) {

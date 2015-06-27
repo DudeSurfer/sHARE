@@ -7,29 +7,39 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -210,9 +220,9 @@ public class NotesDetailActivity extends BaseActivity {
 
                 List<Comments> mChosenNoteComm = mChosenNote.getList("comments");
                 if (mChosenNoteComm != null) {
-                    mCommentsLV.setAdapter(new ArrayAdapter<Comments>(NotesDetailActivity.this, android.R.layout.simple_list_item_1, mChosenNoteComm));
+                    mCommentsLV.setAdapter(new CommentAdapter(NotesDetailActivity.this, R.layout.comment_item, mChosenNoteComm));
                 } else{
-                    Toast.makeText(NotesDetailActivity.this, "mChosenNoteComm is null", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(NotesDetailActivity.this, "mChosenNoteComm is null", Toast.LENGTH_SHORT).show();
                 }
 
                 if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
@@ -296,5 +306,58 @@ public class NotesDetailActivity extends BaseActivity {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
         }
         return type;
+    }
+
+    private class CommentAdapter extends ArrayAdapter<Comments> {
+        private int mResource;
+        private List<Comments> mComments;
+
+        public CommentAdapter(Context context, int resource, List<Comments> comments) {
+            super(context, resource, comments);
+            mResource = resource;
+            mComments = comments;
+        }
+
+        @Override
+        public View getView(int position, View row, ViewGroup parent) {
+            if (row == null) {
+                row = getLayoutInflater().inflate(mResource, parent, false);
+            }
+
+            ParseUser mParseUser = null;
+            Comments mThisComment = mComments.get(position);
+            final TextView titleTV = (TextView) row.findViewById(R.id.firstLine);
+            final TextView descrTV = (TextView) row.findViewById(R.id.secondLine);
+            final RatingBar mRB = (RatingBar) row.findViewById(R.id.mRB);
+            final ImageView profilePic = (ImageView) row.findViewById(R.id.icon);
+
+
+            mRB.setRating(mThisComment.getCStars());
+            LayerDrawable stars = (LayerDrawable) mRB.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(0xffd13d25, PorterDuff.Mode.SRC_ATOP);
+            titleTV.setText(mThisComment.getCTitle());
+            descrTV.setText(mThisComment.getCContent());
+            ParseQuery<ParseUser> query = ParseUser.getQuery();
+            query.whereEqualTo("username", mThisComment.getCContributor());
+            try {
+                mParseUser = query.getFirst();
+                ParseFile pf = mParseUser.getParseFile("profilepic");
+                pf.getDataInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            if (bitmap != null) {
+                                profilePic.setImageBitmap(bitmap);
+                            }
+                        }
+                    }
+                });
+            } catch (Exception e){
+            }
+
+
+
+            return row;
+        }
     }
 }
