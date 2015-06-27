@@ -74,8 +74,51 @@ public class NotesDetailActivity extends BaseActivity {
             public void done(Notes notes, ParseException e) {
                 mChosenNote = notes;
                 mTopicTV.setText(mChosenNote.getTopic());
-                mFiletypeTV.setText(notes.getNotesType());
                 mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+
+                switch(mChosenNote.getNotesType()){
+                    case "image/png":{
+                        mFiletypeTV.setText("Picture (.png)");
+                        break;
+                    }
+                    case "application/msword":{
+                        mFiletypeTV.setText("Document (.doc)");
+                        break;
+                    }
+                    case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":{
+                        mFiletypeTV.setText("Document (.docx)");
+                        break;
+                    }
+                    case "image/jpeg":{
+                        mFiletypeTV.setText("Image (.jpg)");
+                        break;
+                    }
+                    case "video/x-msvideo":{
+                        mFiletypeTV.setText("Video (.avi)");
+                        break;
+                    }
+                    case "video/mp4":{
+                        mFiletypeTV.setText("Video (.mp4)");
+                        break;
+                    }
+                    case "video/mpeg":{
+                        mFiletypeTV.setText("Video (.mpg)");
+                        break;
+                    }
+                    case "audio/mp4":{
+                        mFiletypeTV.setText("Audio (.mp4a)");
+                        break;
+                    }
+                    case "audio/mpeg":{
+                        mFiletypeTV.setText("Audio (.mpga)");
+                        break;
+                    }
+                    case "application/pdf":{
+                        mFiletypeTV.setText("Document (.pdf)");
+                        break;
+                    }
+                }
+
                 mDownloadButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
