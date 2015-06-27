@@ -124,4 +124,17 @@ public class Notes extends ParseObject {
         removeAll("NotesUpvoters", toRemove);
     }
 
+    public ArrayList<String> getReporters() {
+        List<String> mReporters = getList("reporters");
+        return new ArrayList<>(mReporters);
+    }
+
+    public void setReporters(ArrayList<String> mReporters){
+        put("reporters",mReporters);
+    }
+
+    public void addReporters(String mReporters){
+        add("reporters",mReporters);
+    }
+
 }

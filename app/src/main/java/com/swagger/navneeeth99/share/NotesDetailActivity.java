@@ -46,6 +46,7 @@ public class NotesDetailActivity extends BaseActivity {
     private Button mDownvoteBT;
     private ListView mCommentsLV;
     private Button mNewCommentBT;
+    private ImageButton mReportButton;
 
 
     @Override
@@ -63,6 +64,7 @@ public class NotesDetailActivity extends BaseActivity {
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
         mNewCommentBT = (Button)findViewById(R.id.NewCommentBT);
         mVotesTV = (TextView)findViewById(R.id.votesTV);
+        mReportButton = (ImageButton)findViewById(R.id.reportBT);
 
 
         ParseQuery<Notes> query = ParseQuery.getQuery("Notes");
@@ -72,8 +74,51 @@ public class NotesDetailActivity extends BaseActivity {
             public void done(Notes notes, ParseException e) {
                 mChosenNote = notes;
                 mTopicTV.setText(mChosenNote.getTopic());
-                mFiletypeTV.setText(notes.getNotesType());
                 mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+
+                switch(mChosenNote.getNotesType()){
+                    case "image/png":{
+                        mFiletypeTV.setText("Picture (.png)");
+                        break;
+                    }
+                    case "application/msword":{
+                        mFiletypeTV.setText("Document (.doc)");
+                        break;
+                    }
+                    case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":{
+                        mFiletypeTV.setText("Document (.docx)");
+                        break;
+                    }
+                    case "image/jpeg":{
+                        mFiletypeTV.setText("Image (.jpg)");
+                        break;
+                    }
+                    case "video/x-msvideo":{
+                        mFiletypeTV.setText("Video (.avi)");
+                        break;
+                    }
+                    case "video/mp4":{
+                        mFiletypeTV.setText("Video (.mp4)");
+                        break;
+                    }
+                    case "video/mpeg":{
+                        mFiletypeTV.setText("Video (.mpg)");
+                        break;
+                    }
+                    case "audio/mp4":{
+                        mFiletypeTV.setText("Audio (.mp4a)");
+                        break;
+                    }
+                    case "audio/mpeg":{
+                        mFiletypeTV.setText("Audio (.mpga)");
+                        break;
+                    }
+                    case "application/pdf":{
+                        mFiletypeTV.setText("Document (.pdf)");
+                        break;
+                    }
+                }
+
                 mDownloadButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -224,6 +269,20 @@ public class NotesDetailActivity extends BaseActivity {
                             mChosenNote.saveInBackground();
                             mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         }
+                    }
+                });
+
+                mReportButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!mChosenNote.getReporters().contains(ParseUser.getCurrentUser().getUsername())){
+                            mChosenNote.addReporters(ParseUser.getCurrentUser().getUsername());
+                            Toast.makeText(NotesDetailActivity.this,"Report sent!\nAdmins will review this note.",Toast.LENGTH_LONG).show();
+                            mChosenNote.saveInBackground();
+                        } else {
+                            Toast.makeText(NotesDetailActivity.this,"Report has already been sent!",Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 });
             }

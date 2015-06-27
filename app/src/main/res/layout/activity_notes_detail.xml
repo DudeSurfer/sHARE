@@ -63,6 +63,15 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/downloadButton"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/reportBT"
+                android:layout_below="@+id/FiletypeTV"
+                android:layout_toLeftOf="@+id/previewButton"
+                android:layout_toStartOf="@+id/previewButton"
+                android:background="@drawable/ic_report_problem_black_24dp"/>
         </RelativeLayout>
 
         <RelativeLayout
