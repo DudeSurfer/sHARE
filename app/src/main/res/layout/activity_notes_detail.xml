@@ -10,110 +10,130 @@
         android:layout_height="match_parent"
         android:background="#efdecb"
         android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Topic"
-                android:textStyle="bold"
-                android:textColor="#d13d25"
-                android:id="@+id/TopicTV"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="30dp"
-                android:paddingRight="20dp"
-                android:gravity="center"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@+id/FiletypeTV"
-                android:layout_toStartOf="@+id/FiletypeTV" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="File Type"
-                android:id="@+id/FiletypeTV"
-                android:padding="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_preview"
-                android:id="@+id/previewButton"
-                android:layout_below="@+id/FiletypeTV"
-                android:layout_toLeftOf="@+id/downloadButton"
-                android:layout_toStartOf="@+id/downloadButton" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_download"
-                android:layout_below="@+id/FiletypeTV"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/downloadButton"/>
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/reportBT"
-                android:layout_below="@+id/FiletypeTV"
-                android:layout_toLeftOf="@+id/previewButton"
-                android:layout_toStartOf="@+id/previewButton"
-                android:background="@drawable/ic_report_problem_black_24dp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:orientation="horizontal">
 
-            <Button
-                android:textSize="20sp"
-                android:background="#0000"
-                android:textColor="#d13d25"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/UpvoteBT"
-                android:text="+1"/>
-
-            <Button
-                android:textSize="20sp"
-                android:background="#0000"
-                android:textColor="#d13d25"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/DownvoteBT"
-                android:text="-1"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <TextView
-                android:textColor="#d13d25"
-                android:textSize="20sp"
-                android:text="Votes: "
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+            <RelativeLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/votesTV"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:padding="10dp">
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/reportBT"
+                    android:background="@drawable/ic_report_problem_black_24dp" />
+
+                <ImageButton
+                    android:textSize="20sp"
+                    android:src="@drawable/ic_keyboard_arrow_up_black_48dp"
+                    android:background="@drawable/red_bg"
+                    android:textColor="#d13d25"
+                    android:layout_below="@+id/reportBT"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/UpvoteBT" />
+
+                <ImageButton
+                    android:textSize="20sp"
+                    android:background="@drawable/red_bg"
+                    android:src="@drawable/ic_keyboard_arrow_down_black_48dp"
+                    android:textColor="#d13d25"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/DownvoteBT"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/votesTV" />
+
+                <TextView
+                    android:textColor="#d13d25"
+                    android:textSize="20sp"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/votesTV"
+                    android:layout_below="@+id/UpvoteBT"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Topic"
+                    android:textStyle="bold"
+                    android:textColor="#d13d25"
+                    android:id="@+id/TopicTV"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="10dp" />
+                <LinearLayout
+                    android:id="@+id/detailLL"
+                    android:layout_below="@+id/TopicTV"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Contributor"
+                    android:id="@+id/ContributorTV"
+                    android:padding="10dp"
+                    android:gravity="left" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="File Type"
+                    android:id="@+id/FiletypeTV"
+                    android:padding="10dp"
+                    android:gravity="right" />
+                </LinearLayout>
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_preview"
+                    android:id="@+id/previewButton"
+                    android:layout_below="@+id/detailLL"
+                    android:layout_toLeftOf="@+id/downloadButton"
+                    android:layout_toStartOf="@+id/downloadButton" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_download"
+                    android:layout_below="@+id/detailLL"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/downloadButton"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <ListView
             android:layout_weight="7"
@@ -122,12 +142,25 @@
             android:id="@+id/CommentsLV"
             android:layout_gravity="center_horizontal" />
 
+        <TextView
+            android:id="@+id/empty_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:text="There are no comments." >
+        </TextView>
+
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:orientation="horizontal">
             <Button
+                android:background="#d13d25"
+                android:textColor="#ffffffff"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/NewCommentBT"

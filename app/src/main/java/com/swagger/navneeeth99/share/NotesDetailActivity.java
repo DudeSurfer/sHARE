@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -49,11 +50,12 @@ public class NotesDetailActivity extends BaseActivity {
     private Notes mChosenNote;
     private TextView mTopicTV;
     private TextView mFiletypeTV;
+    private TextView mContributorTV;
     private TextView mVotesTV;
     private ImageButton mPreviewButton;
     private ImageButton mDownloadButton;
-    private Button mUpvoteBT;
-    private Button mDownvoteBT;
+    private ImageButton mUpvoteBT;
+    private ImageButton mDownvoteBT;
     private ListView mCommentsLV;
     private Button mNewCommentBT;
     private ImageButton mReportButton;
@@ -65,17 +67,18 @@ public class NotesDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_notes_detail);
         super.onCreateDrawer();
 
+        setTitle("Notes");
         mTopicTV = (TextView)findViewById(R.id.TopicTV);
         mFiletypeTV = (TextView)findViewById(R.id.FiletypeTV);
+        mContributorTV = (TextView) findViewById(R.id.ContributorTV);
         mPreviewButton = (ImageButton)findViewById(R.id.previewButton);
         mDownloadButton = (ImageButton)findViewById(R.id.downloadButton);
-        mUpvoteBT = (Button)findViewById(R.id.UpvoteBT);
-        mDownvoteBT = (Button)findViewById(R.id.DownvoteBT);
+        mUpvoteBT = (ImageButton)findViewById(R.id.UpvoteBT);
+        mDownvoteBT = (ImageButton)findViewById(R.id.DownvoteBT);
         mCommentsLV = (ListView)findViewById(R.id.CommentsLV);
         mNewCommentBT = (Button)findViewById(R.id.NewCommentBT);
         mVotesTV = (TextView)findViewById(R.id.votesTV);
         mReportButton = (ImageButton)findViewById(R.id.reportBT);
-
 
         ParseQuery<Notes> query = ParseQuery.getQuery("Notes");
         query.whereEqualTo("objectId", getIntent().getStringExtra(NotesActivity.DISPLAY_DETAIL));
@@ -83,8 +86,10 @@ public class NotesDetailActivity extends BaseActivity {
             @Override
             public void done(Notes notes, ParseException e) {
                 mChosenNote = notes;
+                mContributorTV.setText(mChosenNote.getContributorName());
                 mTopicTV.setText(mChosenNote.getTopic());
-                mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                mVotesTV.setText("" + (mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                mCommentsLV.setEmptyView(findViewById(R.id.empty_list_item));
 
                 switch(mChosenNote.getNotesType()){
                     case "image/png":{
@@ -188,8 +193,6 @@ public class NotesDetailActivity extends BaseActivity {
                     }
                 });
 
-
-
                 mPreviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -226,34 +229,32 @@ public class NotesDetailActivity extends BaseActivity {
                 }
 
                 if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
-                    mDownvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                    mDownvoteBT.setBackgroundResource(R.drawable.light_red_bg);
                 }
                 if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())){
-                    mUpvoteBT.setTextColor(Color.parseColor("#FFD15099"));
+                    mUpvoteBT.setBackgroundResource(R.drawable.light_red_bg);
                 }
-
-
 
                 mUpvoteBT.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())) {
                             mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
-                            mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                            mUpvoteBT.setBackgroundResource(R.drawable.red_bg);
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                            mVotesTV.setText(""+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         } else if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())){
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
-                            mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
-                            mUpvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mDownvoteBT.setBackgroundResource(R.drawable.red_bg);
+                            mUpvoteBT.setBackgroundResource(R.drawable.light_red_bg);
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                            mVotesTV.setText(""+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         } else {
                             mChosenNote.addNotesUpvoter(ParseUser.getCurrentUser().getUsername());
-                            mUpvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mUpvoteBT.setBackgroundResource(R.drawable.light_red_bg);
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                            mVotesTV.setText(""+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         }
                     }
                 });
@@ -263,21 +264,21 @@ public class NotesDetailActivity extends BaseActivity {
                     public void onClick(View v) {
                         if (mChosenNote.getNotesDownvoters().contains(ParseUser.getCurrentUser().getUsername())) {
                             mChosenNote.removeNotesDownvoter(ParseUser.getCurrentUser().getUsername());
-                            mDownvoteBT.setTextColor(Color.parseColor("#d13d25"));
+                            mDownvoteBT.setBackgroundResource(R.drawable.red_bg);
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
+                            mVotesTV.setText(""+(mChosenNote.getNotesDownvoters().size()-mChosenNote.getNotesUpvoters().size()));
                         } else if (mChosenNote.getNotesUpvoters().contains(ParseUser.getCurrentUser().getUsername())){
                             mChosenNote.removeNotesUpvoter(ParseUser.getCurrentUser().getUsername());
                             mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
-                            mUpvoteBT.setTextColor(Color.parseColor("#d13d25"));
-                            mDownvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mUpvoteBT.setBackgroundResource(R.drawable.red_bg);
+                            mDownvoteBT.setBackgroundResource(R.drawable.light_red_bg);
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                            mVotesTV.setText(""+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         } else {
                             mChosenNote.addNotesDownvoter(ParseUser.getCurrentUser().getUsername());
-                            mDownvoteBT.setTextColor(Color.parseColor("#FF38B1"));
+                            mDownvoteBT.setBackgroundResource(R.drawable.light_red_bg);
                             mChosenNote.saveInBackground();
-                            mVotesTV.setText("Votes: "+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
+                            mVotesTV.setText(""+(mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                         }
                     }
                 });
@@ -285,13 +286,26 @@ public class NotesDetailActivity extends BaseActivity {
                 mReportButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!mChosenNote.getReporters().contains(ParseUser.getCurrentUser().getUsername())){
-                            mChosenNote.addReporters(ParseUser.getCurrentUser().getUsername());
-                            Toast.makeText(NotesDetailActivity.this,"Report sent!\nAdmins will review this note.",Toast.LENGTH_LONG).show();
-                            mChosenNote.saveInBackground();
-                        } else {
-                            Toast.makeText(NotesDetailActivity.this,"Report has already been sent!",Toast.LENGTH_LONG).show();
-                        }
+                        new CustomDialog.Builder(NotesDetailActivity.this)
+                                .setTitle("Report this note as poor?")
+                                .setMessage("Reporting is serious.")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        if (!mChosenNote.getReporters().contains(ParseUser.getCurrentUser().getUsername())){
+                                            mChosenNote.addReporters(ParseUser.getCurrentUser().getUsername());
+                                            Toast.makeText(NotesDetailActivity.this,"Report sent!\nAdmins will review this note.",Toast.LENGTH_LONG).show();
+                                            mChosenNote.saveInBackground();
+                                        } else {
+                                            Toast.makeText(NotesDetailActivity.this,"Report has already been sent!",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                                .create()
+                                .show();
+
 
                     }
                 });
