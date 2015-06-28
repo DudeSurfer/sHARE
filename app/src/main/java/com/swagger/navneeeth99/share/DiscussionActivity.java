@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,6 +38,7 @@ public class DiscussionActivity extends BaseActivity {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private SimpleDateFormat df;
+    List<Boolean> mMessagesRead;
     ArrayList<ParseUser> mFriends;
     List<String> mMessages;
     List<String> mDates;
@@ -118,6 +120,7 @@ public class DiscussionActivity extends BaseActivity {
         for (ParseUser pu: mFriends){
             String message = "";
             String date = "";
+            boolean read = false;
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatMessage");
             query.whereMatches("fromName", pu.getUsername());
             query.whereMatches("toName", ParseUser.getCurrentUser().getUsername());
@@ -135,10 +138,16 @@ public class DiscussionActivity extends BaseActivity {
             try {
                 if (mainQuery.getFirst().getString("fromName").equals(pu.getUsername())) {
                     String test = mainQuery.getFirst().getString("message");
+                    boolean mRead = mainQuery.getFirst().getBoolean("read");
                     if (test.length() < 18) {
                         message = ">" + pu.getUsername() + ": " + test;
                     } else {
                         message = ">" + pu.getUsername() + ": " + test.substring(0, 15) + "...";
+                    }
+                    if (mRead){
+                        read = true;
+                    } else {
+                        read = false;
                     }
                 } else {
                     String test = mainQuery.getFirst().getString("message");
@@ -153,6 +162,7 @@ public class DiscussionActivity extends BaseActivity {
             }
 
             mMessages.add(message);
+            mMessagesRead.add(read);
             mDates.add(date);
         }
         adapter.notifyDataSetChanged();
@@ -204,6 +214,9 @@ public class DiscussionActivity extends BaseActivity {
             usernameTV.setText(mParseUser.getUsername());
             try {
                 messageTV.setText(mMessages.get(position));
+                if (!mMessagesRead.get(position)){
+                    messageTV.setTypeface(Typeface.DEFAULT_BOLD);
+                }
             } catch (IndexOutOfBoundsException e) {
                 messageTV.setText("");
             }
