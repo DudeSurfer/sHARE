@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,91 +85,92 @@ public class UserProfileActivity extends Activity {
             @Override
             public void done(Friends friends, ParseException e) {
                 mUserFriend = friends;
+
+                ParseQuery<Friends> userQuery = ParseQuery.getQuery("Friends");
+                userQuery.whereEqualTo("User", ParseUser.getCurrentUser().getUsername());
+                userQuery.getFirstInBackground(new GetCallback<Friends>() {
+                    @Override
+                    public void done(Friends friends, ParseException e) {
+                        mUser = friends;
+
+                        if (mUser.getFriendsWith().contains(username)) { //if friends, unfriend.
+                            mChatButton.setVisibility(View.VISIBLE);
+                            mChatButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(UserProfileActivity.this, IndivChatActivity.class);
+                                    intent.putExtra(IndivChatActivity.SEND_PARSE_USERNAME, username);
+                                    startActivity(intent);
+                                }
+                            });
+                            mFriendButton.setText("Unfriend me!");
+                            mFriendButton.setOnClickListener(new View.OnClickListener() {
+                                                                 @Override
+                                                                 public void onClick(View v) {
+                                                                     new CustomDialog.Builder(UserProfileActivity.this)
+                                                                             .setTitle("You sure?")
+                                                                             .setMessage("You are unfriending.")
+                                                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                                                 public void onClick(DialogInterface dialog, int whichButton) {
+                                                                                     try {
+                                                                                         if (mUser.getFriendsWith().contains(username)) {
+                                                                                             mUser.removeFriendsWith(username);
+                                                                                             mUserFriend.removeFriendsWith(ParseUser.getCurrentUser().getUsername());
+                                                                                             mUser.saveInBackground();
+                                                                                             mUserFriend.saveInBackground();
+                                                                                         } else {
+                                                                                             Toast.makeText(UserProfileActivity.this, "You are not friends. Oops!", Toast.LENGTH_SHORT).show();
+                                                                                         }
+                                                                                     } catch (NullPointerException e2) {
+                                                                                     }
+                                                                                 }
+                                                                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                                         public void onClick(DialogInterface dialog, int whichButton) {
+                                                                             // Do nothing.
+                                                                         }
+                                                                     }).create().show();
+                                                                 }
+                                                             }
+                            );
+                        } else { //if not friends, allow friending.
+                            mChatButton.setVisibility(View.GONE);
+                            mFriendButton.setOnClickListener(new View.OnClickListener() {
+                                                                 @Override
+                                                                 public void onClick(View v) {
+                                                                     new CustomDialog.Builder(UserProfileActivity.this)
+                                                                             .setTitle("You sure?")
+                                                                             .setMessage("You are friending.")
+                                                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                                                 public void onClick(DialogInterface dialog, int whichButton) {
+
+                                                                                     try {
+                                                                                         if (!mUser.getFriendsWith().contains(username)) {
+                                                                                             mUser.addFriendsWith(username);
+                                                                                             mUserFriend.addFriendsWith(ParseUser.getCurrentUser().getUsername());
+                                                                                             mUser.saveInBackground();
+                                                                                             mUserFriend.saveInBackground();
+                                                                                         } else {
+                                                                                             Toast.makeText(UserProfileActivity.this, "You are already friends!", Toast.LENGTH_LONG).show();
+                                                                                         }
+                                                                                     } catch (NullPointerException e2) {
+                                                                                         e2.printStackTrace();
+                                                                                         Log.d("addFriends", "got problems");
+                                                                                     }
+
+                                                                                 }
+                                                                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                                         public void onClick(DialogInterface dialog, int whichButton) {
+                                                                             // Do nothing.
+                                                                         }
+                                                                     }).create().show();
+                                                                 }
+                                                             }
+                            );
+                        }
+                    }
+                });
             }
         });
-
-        ParseQuery<Friends> userQuery = ParseQuery.getQuery("Friends");
-        userQuery.whereEqualTo("User", ParseUser.getCurrentUser());
-        userQuery.getFirstInBackground(new GetCallback<Friends>() {
-            @Override
-            public void done(Friends friends, ParseException e) {
-                mUser = friends;
-            }
-        });
-
-        if (mUser.getFriendsWith().contains(username)) { //if friends, unfriend.
-            mChatButton.setVisibility(View.VISIBLE);
-            mChatButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(UserProfileActivity.this, IndivChatActivity.class);
-                    intent.putExtra(IndivChatActivity.SEND_PARSE_USERNAME, username);
-                    startActivity(intent);
-                }
-            });
-            mFriendButton.setText("Unfriend me!");
-            mFriendButton.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View v) {
-                                                     new CustomDialog.Builder(UserProfileActivity.this)
-                                                             .setTitle("You sure?")
-                                                             .setMessage("You are unfriending.")
-                                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                                                     try {
-                                                                         if (mUser.getFriendsWith().contains(username)) {
-                                                                             mUser.removeFriendsWith(username);
-                                                                             mUserFriend.removeFriendsWith(ParseUser.getCurrentUser().getUsername());
-                                                                             mUser.saveInBackground();
-                                                                             mUserFriend.saveInBackground();
-                                                                         } else {
-                                                                             Toast.makeText(UserProfileActivity.this, "You are not friends. Oops!", Toast.LENGTH_SHORT).show();
-                                                                         }
-                                                                     } catch (NullPointerException e2) {
-                                                                     }
-                                                                 }
-                                                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                         public void onClick(DialogInterface dialog, int whichButton) {
-                                                             // Do nothing.
-                                                         }
-                                                     }).create().show();
-                                                 }
-                                             }
-            );
-        } else { //if not friends, allow friending.
-            mChatButton.setVisibility(View.GONE);
-            mFriendButton.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View v) {
-                                                     new CustomDialog.Builder(UserProfileActivity.this)
-                                                             .setTitle("You sure?")
-                                                             .setMessage("You are friending.")
-                                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                                 public void onClick(DialogInterface dialog, int whichButton) {
-
-                                                                     try {
-                                                                         if (!mUser.getFriendsWith().contains(username)) {
-                                                                             mUser.addFriendsWith(username);
-                                                                             mUserFriend.addFriendsWith(ParseUser.getCurrentUser().getUsername());
-                                                                             mUser.saveInBackground();
-                                                                             mUserFriend.saveInBackground();
-                                                                         } else {
-                                                                             Toast.makeText(UserProfileActivity.this, "You are already friends!", Toast.LENGTH_LONG).show();
-                                                                         }
-                                                                     } catch (NullPointerException e2) {
-
-                                                                     }
-
-                                                                 }
-                                                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                         public void onClick(DialogInterface dialog, int whichButton) {
-                                                             // Do nothing.
-                                                         }
-                                                     }).create().show();
-                                                 }
-                                             }
-            );
-        }
     }
 
     private void addFriendForOther (){
