@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.adapters.ArraySwipeAdapter;
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -106,6 +107,8 @@ public class IndivGrpChatActivity extends ActionBarActivity {
                         try {
                             if (object.get("toGroup").equals(mCurrentGrpChatTitle)) {
                                 mMessages.add(object);
+                                object.addUnique("readBy", ParseUser.getCurrentUser().getUsername());
+                                object.saveInBackground();
                             }
                         } catch (NullPointerException e2){}
                     }
@@ -118,6 +121,9 @@ public class IndivGrpChatActivity extends ActionBarActivity {
                                     chatMessage.put("toGroup", mCurrentGrpChatTitle);
                                     chatMessage.put("fromName", mCurrentName);
                                     chatMessage.put("message", mMessageET.getText().toString());
+                                    ArrayList<String> mReadBy = new ArrayList<>();
+                                    mReadBy.add(ParseUser.getCurrentUser().getUsername());
+                                    chatMessage.put("readBy", mReadBy);
                                     chatMessage.saveInBackground(new SaveCallback() {
                                         @Override
                                         public void done(ParseException e) {
