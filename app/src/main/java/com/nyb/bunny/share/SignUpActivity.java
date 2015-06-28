@@ -193,18 +193,6 @@ public class SignUpActivity extends Activity {
         newUser.put("lowerUsername", username.toLowerCase());
         newUser.put("status", "This is my status.");
         newUser.put("friends", new ArrayList<String>());
-        ParseQuery query = ParseQuery.getQuery("SchoolItem");
-        query.whereEqualTo("name", school);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    Log.e("ERROR", school + " does not exist.");
-                } else {
-                    object.put("members", object.getList("members").add(username));
-                    object.saveInBackground();
-                }
-            }
-        });
         newUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
@@ -225,6 +213,19 @@ public class SignUpActivity extends Activity {
                     newUser.put("profilepic", file);
                     newUser.saveInBackground();
                     // Success!
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("SchoolItem");
+                    query.whereEqualTo("name", school);
+                    query.getFirstInBackground(new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (object == null) {
+                                Log.e("ERROR", school + " does not exist.");
+                            } else {
+                                Log.d("test", "putting in the members list and saving school");
+                                object.add("members", username);
+                                object.saveInBackground();
+                            }
+                        }
+                    });
                     Intent intent = new Intent(SignUpActivity.this, HelpActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
