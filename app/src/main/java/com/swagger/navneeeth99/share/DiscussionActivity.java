@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -82,24 +83,31 @@ public class DiscussionActivity extends BaseActivity {
     }
 
     public void fillFriendList(){
-        final List<String> mCurrentFriendNames = ParseUser.getCurrentUser().getList("friends");
-        ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.setLimit(350);
-        query.orderByAscending("lowerUsername");
-        query.whereContainedIn("username", mCurrentFriendNames);
-        query.findInBackground(new FindCallback<ParseUser>() {
-            public void done(List<ParseUser> results, ParseException e) {
-                if (e == null) {
-                    try {
-                        mFriends.clear();
-                        mFriends.addAll(results);
-                        Toast.makeText(DiscussionActivity.this, "List loaded.", Toast.LENGTH_SHORT).show();
-                        fillMessageList();
-                    } catch (NullPointerException e2) {
+        ParseQuery mCurrFrndQry = new ParseQuery("Friends");
+        mCurrFrndQry.whereEqualTo("User", ParseUser.getCurrentUser().getUsername());
+        mCurrFrndQry.getFirstInBackground(new GetCallback<Friends>() {
+            @Override
+            public void done(Friends friends, ParseException e) {
+                final ArrayList<String> mCurrentFriendNames = friends.getFriendsWith();
+                ParseQuery<ParseUser> query = ParseUser.getQuery();
+                query.setLimit(350);
+                query.orderByAscending("lowerUsername");
+                query.whereContainedIn("username", mCurrentFriendNames);
+                query.findInBackground(new FindCallback<ParseUser>() {
+                    public void done(List<ParseUser> results, ParseException e) {
+                        if (e == null) {
+                            try {
+                                mFriends.clear();
+                                mFriends.addAll(results);
+                                Toast.makeText(DiscussionActivity.this, "List loaded.", Toast.LENGTH_SHORT).show();
+                                fillMessageList();
+                            } catch (NullPointerException e2) {
+                            }
+                        } else {
+                            Toast.makeText(DiscussionActivity.this, "Error. Try reloading.", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                } else {
-                    Toast.makeText(DiscussionActivity.this, "Error. Try reloading.", Toast.LENGTH_SHORT).show();
-                }
+                });
             }
         });
     }

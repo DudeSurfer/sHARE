@@ -79,6 +79,7 @@
             android:background="#d13d25"
             android:textColor="#ffffffff"
             android:text="Cancel"
+            android:id="@+id/cancelGroup"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
             android:layout_width="0dp"

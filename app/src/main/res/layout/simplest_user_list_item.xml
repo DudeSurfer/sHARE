@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/simple_icon"
+        android:layout_width="?android:attr/listPreferredItemHeight"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="6dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/ic_launcher"
+        app:riv_corner_radius="30dip"
+        app:riv_border_width="0dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="true" />
+
+    <TextView
+        android:id="@+id/simple_usrname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:gravity="center_vertical"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/simple_icon"
+        android:layout_toEndOf="@+id/simple_icon" />
+
+</RelativeLayout>

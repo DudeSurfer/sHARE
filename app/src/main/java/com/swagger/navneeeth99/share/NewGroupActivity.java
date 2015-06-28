@@ -1,22 +1,33 @@
 package com.swagger.navneeeth99.share;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -47,9 +58,9 @@ public class NewGroupActivity extends ActionBarActivity {
                 } else {
                     mAllSchoolmates.addAll((List)object.getList("members"));
                     mAllSchoolmates.remove(ParseUser.getCurrentUser().getUsername());
-                    final ArrayAdapter mAllUsersAdapter = new ArrayAdapter<>(NewGroupActivity.this, android.R.layout.simple_list_item_1, mAllSchoolmates);
+                    final SimpleUserAdapter mAllUsersAdapter = new SimpleUserAdapter(NewGroupActivity.this, R.layout.simplest_user_list_item, mAllSchoolmates);
                     mAllUsersLV.setAdapter(mAllUsersAdapter);
-                    final ArrayAdapter mNewGrpMbrAdapter = new ArrayAdapter<>(NewGroupActivity.this, android.R.layout.simple_list_item_1, mNewGrpMembers);
+                    final SimpleUserAdapter mNewGrpMbrAdapter = new SimpleUserAdapter(NewGroupActivity.this, R.layout.simplest_user_list_item, mNewGrpMembers);
                     mNewMembersLV.setAdapter(mNewGrpMbrAdapter);
                     mAllUsersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -87,6 +98,15 @@ public class NewGroupActivity extends ActionBarActivity {
                             startActivity(intent);
                         }
                     });
+
+                    Button mCancelButton = (Button)findViewById(R.id.cancelGroup);
+                    mCancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent cancelIntent = new Intent(NewGroupActivity.this, DiscussionActivity.class);
+                            startActivity(cancelIntent);
+                        }
+                    });
                 }
             }
         });
@@ -109,5 +129,56 @@ public class NewGroupActivity extends ActionBarActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class SimpleUserAdapter extends ArrayAdapter<String> {
+        private int mResource;
+        private ArrayList<String> mUsers;
+
+        public SimpleUserAdapter(Context context, int resource, ArrayList<String> users) {
+            super(context, resource, users);
+            mResource = resource;
+            mUsers = users;
+        }
+
+        @Override
+        public View getView(int position, View row, ViewGroup parent) {
+            if (row == null) {
+                row = getLayoutInflater().inflate(mResource, parent, false);
+            }
+
+            final TextView usernameTV = (TextView) row.findViewById(R.id.simple_usrname);
+            final ImageView profilePic = (ImageView) row.findViewById(R.id.simple_icon);
+
+            ParseUser mParseUser;
+            String mParseUserName = mUsers.get(position);
+            ParseQuery currUserQuery = ParseUser.getQuery();
+            currUserQuery.whereEqualTo("username", mParseUserName);
+            try{
+                mParseUser = (ParseUser)currUserQuery.getFirst();
+                usernameTV.setText(mParseUserName);
+                ParseFile pf = mParseUser.getParseFile("profilepic");
+                pf.getDataInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            if (bitmap != null) {
+                                profilePic.setImageBitmap(bitmap);
+                            }
+                        }
+                    }
+                });
+            } catch (ParseException pE){
+                pE.printStackTrace();
+                Toast.makeText(NewGroupActivity.this, "Something went wrong! Data could not be loaded", Toast.LENGTH_LONG).show();
+                usernameTV.setText(mParseUserName);
+                Resources res = getResources();
+                Drawable drawable = res.getDrawable(R.drawable.ic_launcher);
+                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                profilePic.setImageBitmap(bitmap);
+            }
+
+            return row;
+        }
     }
 }

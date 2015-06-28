@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -247,7 +249,8 @@ public class BaseActivity extends ActionBarActivity {
             View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.label);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-            String mSelectedDest = values.get(position);
+            ImageButton deleteButton = (ImageButton)rowView.findViewById(R.id.deleteIBT);
+            final String mSelectedDest = values.get(position);
             textView.setText(values.get(position));
             switch (mSelectedDest) {
                 case "Home":
@@ -277,6 +280,51 @@ public class BaseActivity extends ActionBarActivity {
                 default:
                     imageView.setVisibility(View.GONE);
                     rowView.setBackgroundColor(0xff535353);
+                    deleteButton.setVisibility(View.VISIBLE);
+                    deleteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new CustomDialog.Builder(BaseActivity.this)
+                                    .setTitle("Are you sure?")
+                                    .setMessage("You are deleting group chat " + mSelectedDest)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            ParseQuery delChatQuery = new ParseQuery("GroupChat");
+                                            delChatQuery.whereEqualTo("title", mSelectedDest);
+                                            delChatQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                                                @Override
+                                                public void done(ParseObject parseObject, ParseException e) {
+                                                    try {
+                                                        parseObject.delete();
+                                                        Toast.makeText(BaseActivity.this, "Your delete request is being processed.", Toast.LENGTH_LONG).show();
+                                                    } catch (ParseException parseE){
+                                                        parseE.printStackTrace();
+                                                    }
+                                                }
+                                            });
+
+                                            ParseQuery delChatMessages = new ParseQuery("GrpChatMessage");
+                                            delChatMessages.whereEqualTo("toGroup", mSelectedDest);
+                                            delChatMessages.findInBackground(new FindCallback<ParseObject>() {
+                                                @Override
+                                                public void done(List<ParseObject> list, ParseException e) {
+                                                    for(ParseObject pObj:list){
+                                                        try {
+                                                            pObj.delete();
+                                                        } catch (ParseException parseE2){
+                                                            parseE2.printStackTrace();
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    // Do nothing.
+                                }
+                            }).create().show();
+                        }
+                    });
                     break;
             }
 

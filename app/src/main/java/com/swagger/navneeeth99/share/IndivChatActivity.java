@@ -180,9 +180,11 @@ public class IndivChatActivity extends ActionBarActivity {
                         mProgressBar.setVisibility(View.GONE);
                     } catch (NullPointerException e2) {
                         Toast.makeText(IndivChatActivity.this,"There's an error. Try reloading.", Toast.LENGTH_SHORT).show();
+                        e2.printStackTrace();
                     }
-                } else{
+                } else {
                     Toast.makeText(IndivChatActivity.this,"There's an error. Try reloading.", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                     mProgressBar.setVisibility(View.GONE);
                 }
             }

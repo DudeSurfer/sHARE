@@ -230,7 +230,7 @@ public class IndivGrpChatActivity extends ActionBarActivity {
                 });
             }
             else{
-                row = getLayoutInflater().inflate(R.layout.message_from_item, parent, false);
+                row = getLayoutInflater().inflate(R.layout.grp_message_from_item, parent, false);
                 TextView mSenderDetail = (TextView)row.findViewById(R.id.senderTV);
                 mSenderDetail.setText("~ " + currentParseObject.getString("fromName"));
             }
