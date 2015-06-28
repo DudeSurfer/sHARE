@@ -44,6 +44,7 @@ public class NewGroupActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_group);
+        setTitle("New Group");
 
         final ListView mAllUsersLV = (ListView)findViewById(R.id.allUserLV);
         final ListView mNewMembersLV = (ListView)findViewById(R.id.grpMembersLV);

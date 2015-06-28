@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.parse.ParseUser;
 
@@ -23,6 +25,15 @@ public class MainActivity extends BaseActivity {
         } else {
             super.onCreateDrawer();
         }
+        ImageButton mAddButton = (ImageButton) findViewById(R.id.addButton);
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                intent.putExtra(NotesActivity.WIDGET_ADD_NOTES, true);
+                startActivity(intent);
+            }
+        });
     }
 
 

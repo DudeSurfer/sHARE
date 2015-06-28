@@ -10,6 +10,7 @@
 
 
     <EditText
+        android:hint="group name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/grpNameET" />
@@ -33,7 +34,7 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
+                android:text="Group Members"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_horizontal" />
 
@@ -56,7 +57,7 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
+                android:text="All Users"
                 android:id="@+id/textView3"
                 android:layout_gravity="center_horizontal"/>
 
