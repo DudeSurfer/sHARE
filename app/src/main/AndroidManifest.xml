@@ -104,7 +104,8 @@
         </activity>
         <activity
             android:name=".IndivGrpChatActivity"
-            android:label="@string/title_activity_indiv_grp_chat" >
+            android:label="@string/title_activity_indiv_grp_chat"
+            android:parentActivityName=".DiscussionActivity" >
         </activity>
     </application>
 
