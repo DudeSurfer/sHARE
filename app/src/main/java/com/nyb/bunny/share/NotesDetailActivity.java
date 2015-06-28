@@ -87,7 +87,7 @@ public class NotesDetailActivity extends BaseActivity {
                 mCommentsLV.setEmptyView(findViewById(R.id.empty_list_item));
 
                 if (mChosenNote.getContributor().equals(ParseUser.getCurrentUser().getUsername())){
-                    mReportButton.setBackground(getDrawable(R.drawable.ic_delete));
+                    mReportButton.setBackgroundResource(R.drawable.ic_delete);
                 }
 
                 switch(mChosenNote.getNotesType()){

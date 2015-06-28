@@ -110,7 +110,7 @@ public class Notes extends ParseObject {
     }
 
     public void setNotesUpvoters(ArrayList<String> mNotesUpvoters){
-        put("NotesDownvoters", mNotesUpvoters);
+        put("NotesUpvoters", mNotesUpvoters);
     }
 
     public void addNotesUpvoter(String mNotesUpvoter) {
