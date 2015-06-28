@@ -44,7 +44,9 @@ public class MainActivity extends BaseActivity {
         setTitle("sHARE");
 
         final ListView mPrivateLV = (ListView)findViewById(R.id.privateLV);
+        mPrivateLV.setEmptyView(findViewById(R.id.private_empty_list_item));
         final ListView mGroupLV = (ListView)findViewById(R.id.groupLV);
+        mGroupLV.setEmptyView(findViewById(R.id.group_empty_list_item));
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser==null){
@@ -52,86 +54,86 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         } else {
             super.onCreateDrawer();
-        }
-        ImageButton mAddButton = (ImageButton) findViewById(R.id.addButton);
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-                intent.putExtra(NotesActivity.WIDGET_ADD_NOTES, true);
-                startActivity(intent);
-            }
-        });
-
-        ParseQuery mPMsgUnread = new ParseQuery("ChatMessage");
-        mPMsgUnread.whereEqualTo("read", false);
-        mPMsgUnread.whereNotEqualTo("fromName", ParseUser.getCurrentUser().getUsername());
-        mPMsgUnread.whereEqualTo("toName", ParseUser.getCurrentUser().getUsername());
-        mPMsgUnread.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                Log.d("arrays", list.toString());
-                ArrayList<String> mUnreadUsers = new ArrayList<>();
-                for (ParseObject pmsgObj:list){
-                    mUnreadUsers.add(pmsgObj.getString("fromName"));
+            ImageButton mAddButton = (ImageButton) findViewById(R.id.addButton);
+            mAddButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+                    intent.putExtra(NotesActivity.WIDGET_ADD_NOTES, true);
+                    startActivity(intent);
                 }
-                mUnreadUsers = new ArrayList<String>(new LinkedHashSet<String>(mUnreadUsers));
-                UnreadUserAdapter mPrivateAdapter = new UnreadUserAdapter(MainActivity.this, R.layout.simplest_user_list_item, mUnreadUsers);
-                mPrivateLV.setAdapter(mPrivateAdapter);
-            }
-        });
+            });
 
-        final ParseQuery<ParseObject> mGMsgUnread = new ParseQuery<>("GroupChat");
-        mGMsgUnread.whereEqualTo("members", ParseUser.getCurrentUser().getUsername());
-        mGMsgUnread.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                final ArrayList<String> mUnreadGroups = new ArrayList<>();
-                if(list != null) {
-                    Log.d("list", list.toString());
-                    for (final ParseObject gmsgObj : list) {
-                        ParseQuery<ParseObject> mGMsg = new ParseQuery<>("GrpChatMessage");
-                        mGMsg.whereEqualTo("toGroup", gmsgObj.getString("title"));
-                        mGMsg.whereNotEqualTo("readBy", ParseUser.getCurrentUser().getUsername());
-                        mGMsg.findInBackground(new FindCallback<ParseObject>() {
-                            @Override
-                            public void done(List<ParseObject> list2, ParseException e) {
-                                Log.d("list", list2.toString());
-                                for(ParseObject msgObj:list2){
-                                    if(!msgObj.getList("readBy").contains(ParseUser.getCurrentUser().getUsername())){
-                                        mUnreadGroups.add(gmsgObj.getString("title"));
-                                    }
-                                    ArrayList<String> mNoRepeatUnreadGroups = new ArrayList<>(new LinkedHashSet<>(mUnreadGroups));
-                                    Log.d("list", mNoRepeatUnreadGroups.toString() + " list size: " + mNoRepeatUnreadGroups.size());
-                                    UnreadGroupAdapter mGroupAdapter = new UnreadGroupAdapter(MainActivity.this, R.layout.simplest_user_list_item, mNoRepeatUnreadGroups);
-                                    mGroupLV.setAdapter(mGroupAdapter);
-                                }
-                            }
-                        });
+            ParseQuery mPMsgUnread = new ParseQuery("ChatMessage");
+            mPMsgUnread.whereEqualTo("read", false);
+            mPMsgUnread.whereNotEqualTo("fromName", ParseUser.getCurrentUser().getUsername());
+            mPMsgUnread.whereEqualTo("toName", ParseUser.getCurrentUser().getUsername());
+            mPMsgUnread.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> list, ParseException e) {
+                    Log.d("arrays", list.toString());
+                    ArrayList<String> mUnreadUsers = new ArrayList<>();
+                    for (ParseObject pmsgObj : list) {
+                        mUnreadUsers.add(pmsgObj.getString("fromName"));
                     }
-                } else {
-                    Log.d("list", "List is null!!!!!");
+                    mUnreadUsers = new ArrayList<String>(new LinkedHashSet<String>(mUnreadUsers));
+                    UnreadUserAdapter mPrivateAdapter = new UnreadUserAdapter(MainActivity.this, R.layout.simplest_user_list_item, mUnreadUsers);
+                    mPrivateLV.setAdapter(mPrivateAdapter);
                 }
-            }
-        });
+            });
 
-        mPrivateLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, IndivChatActivity.class);
-                intent.putExtra(IndivChatActivity.SEND_PARSE_USERNAME, (String)mPrivateLV.getItemAtPosition(position));
-                startActivity(intent);
-            }
-        });
+            final ParseQuery<ParseObject> mGMsgUnread = new ParseQuery<>("GroupChat");
+            mGMsgUnread.whereEqualTo("members", ParseUser.getCurrentUser().getUsername());
+            mGMsgUnread.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> list, ParseException e) {
+                    final ArrayList<String> mUnreadGroups = new ArrayList<>();
+                    if (list != null) {
+                        Log.d("list", list.toString());
+                        for (final ParseObject gmsgObj : list) {
+                            ParseQuery<ParseObject> mGMsg = new ParseQuery<>("GrpChatMessage");
+                            mGMsg.whereEqualTo("toGroup", gmsgObj.getString("title"));
+                            mGMsg.whereNotEqualTo("readBy", ParseUser.getCurrentUser().getUsername());
+                            mGMsg.findInBackground(new FindCallback<ParseObject>() {
+                                @Override
+                                public void done(List<ParseObject> list2, ParseException e) {
+                                    Log.d("list", list2.toString());
+                                    for (ParseObject msgObj : list2) {
+                                        if (!msgObj.getList("readBy").contains(ParseUser.getCurrentUser().getUsername())) {
+                                            mUnreadGroups.add(gmsgObj.getString("title"));
+                                        }
+                                        ArrayList<String> mNoRepeatUnreadGroups = new ArrayList<>(new LinkedHashSet<>(mUnreadGroups));
+                                        Log.d("list", mNoRepeatUnreadGroups.toString() + " list size: " + mNoRepeatUnreadGroups.size());
+                                        UnreadGroupAdapter mGroupAdapter = new UnreadGroupAdapter(MainActivity.this, R.layout.simplest_user_list_item, mNoRepeatUnreadGroups);
+                                        mGroupLV.setAdapter(mGroupAdapter);
+                                    }
+                                }
+                            });
+                        }
+                    } else {
+                        Log.d("list", "List is null!!!!!");
+                    }
+                }
+            });
 
-        mGroupLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, IndivGrpChatActivity.class);
-                intent.putExtra("title", (String)mGroupLV.getItemAtPosition(position));
-                startActivity(intent);
-            }
-        });
+            mPrivateLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(MainActivity.this, IndivChatActivity.class);
+                    intent.putExtra(IndivChatActivity.SEND_PARSE_USERNAME, (String) mPrivateLV.getItemAtPosition(position));
+                    startActivity(intent);
+                }
+            });
+
+            mGroupLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(MainActivity.this, IndivGrpChatActivity.class);
+                    intent.putExtra("title", (String) mGroupLV.getItemAtPosition(position));
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
 

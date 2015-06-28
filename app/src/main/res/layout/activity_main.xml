@@ -48,6 +48,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/privateLV" />
+
+                <TextView
+                    android:id="@+id/private_empty_list_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    android:textSize="24sp"
+                    android:text="You have no new direct messages." >
+                </TextView>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -68,6 +81,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/groupLV" />
+
+                <TextView
+                    android:id="@+id/group_empty_list_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    android:textSize="24sp"
+                    android:text="You have no new group messages." >
+                </TextView>
             </LinearLayout>
         </LinearLayout>
 
