@@ -86,6 +86,10 @@ public class NotesDetailActivity extends BaseActivity {
                 mVotesTV.setText("" + (mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                 mCommentsLV.setEmptyView(findViewById(R.id.empty_list_item));
 
+                if (mChosenNote.getContributor().equals(ParseUser.getCurrentUser().getUsername())){
+                    mReportButton.setBackground(getDrawable(R.drawable.ic_delete));
+                }
+
                 switch(mChosenNote.getNotesType()){
                     case "image/png":{
                         mFiletypeTV.setText("Picture (.png)");
@@ -281,26 +285,44 @@ public class NotesDetailActivity extends BaseActivity {
                 mReportButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new CustomDialog.Builder(NotesDetailActivity.this)
-                                .setTitle("Report this note as poor?")
-                                .setMessage("Reporting is serious.")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        if (!mChosenNote.getReporters().contains(ParseUser.getCurrentUser().getUsername())){
-                                            mChosenNote.addReporters(ParseUser.getCurrentUser().getUsername());
-                                            Toast.makeText(NotesDetailActivity.this,"Report sent!\nAdmins will review this note.",Toast.LENGTH_LONG).show();
-                                            mChosenNote.saveInBackground();
-                                        } else {
-                                            Toast.makeText(NotesDetailActivity.this,"Report has already been sent!",Toast.LENGTH_LONG).show();
+                        if (mChosenNote.getContributor().equals(ParseUser.getCurrentUser().getUsername())){
+                            new CustomDialog.Builder(NotesDetailActivity.this)
+                                    .setTitle("Delete your app?")
+                                    .setMessage("Deleting is permanenet")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            mChosenNote.deleteInBackground();
+                                            Toast.makeText(NotesDetailActivity.this, "Note deleted", Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(NotesDetailActivity.this, NotesActivity.class);
+                                            startActivity(intent);
                                         }
-                                    }
-                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
-                        })
-                                .create()
-                                .show();
-
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            })
+                                    .create()
+                                    .show();
+                        } else {
+                            new CustomDialog.Builder(NotesDetailActivity.this)
+                                    .setTitle("Report this note as poor?")
+                                    .setMessage("Reporting is serious.")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            if (!mChosenNote.getReporters().contains(ParseUser.getCurrentUser().getUsername())){
+                                                mChosenNote.addReporters(ParseUser.getCurrentUser().getUsername());
+                                                Toast.makeText(NotesDetailActivity.this,"Report sent!\nAdmins will review this note.",Toast.LENGTH_LONG).show();
+                                                mChosenNote.saveInBackground();
+                                            } else {
+                                                Toast.makeText(NotesDetailActivity.this,"Report has already been sent!",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            })
+                                    .create()
+                                    .show();
+                        }
 
                     }
                 });
