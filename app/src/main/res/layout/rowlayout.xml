@@ -41,4 +41,19 @@
         android:layout_alignParentEnd="true"
         android:visibility="gone"/>
 
+    <TextView
+        android:visibility="gone"
+        android:background="@drawable/ic_notif_box"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        android:textColor="@color/fab_material_white"
+        android:text="0"
+        android:gravity="center"
+        android:id="@+id/unreadNotif"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/deleteIBT"
+        android:layout_toStartOf="@+id/deleteIBT" />
+
 </RelativeLayout>

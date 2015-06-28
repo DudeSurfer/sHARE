@@ -123,7 +123,7 @@ public class DiscussionActivity extends BaseActivity {
         for (ParseUser pu: mFriends){
             String message = "";
             String date = "";
-            boolean read = false;
+            boolean read = true;
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatMessage");
             query.whereMatches("fromName", pu.getUsername());
             query.whereMatches("toName", ParseUser.getCurrentUser().getUsername());

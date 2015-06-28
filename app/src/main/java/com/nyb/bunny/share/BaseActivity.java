@@ -246,9 +246,10 @@ public class BaseActivity extends ActionBarActivity {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
-            TextView textView = (TextView) rowView.findViewById(R.id.label);
+            final TextView textView = (TextView) rowView.findViewById(R.id.label);
             ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
             ImageButton deleteButton = (ImageButton)rowView.findViewById(R.id.deleteIBT);
+            final TextView unreadTV = (TextView)rowView.findViewById(R.id.unreadNotif);
             final String mSelectedDest = values.get(position);
             textView.setText(values.get(position));
             switch (mSelectedDest) {
@@ -322,6 +323,27 @@ public class BaseActivity extends ActionBarActivity {
                                     // Do nothing.
                                 }
                             }).create().show();
+                        }
+                    });
+                    ParseQuery unreadQuery = new ParseQuery("GrpChatMessage");
+                    unreadQuery.whereEqualTo("toGroup", mSelectedDest);
+                    unreadQuery.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> list, ParseException e) {
+                            int mUnreadMsg = 0;
+                            for(ParseObject msgObj: list){
+                                if (!msgObj.getList("readBy").contains(ParseUser.getCurrentUser().getUsername())){
+                                    mUnreadMsg += 1;
+                                }
+                            }
+                            if(mUnreadMsg > 0){
+                                unreadTV.setText(String.valueOf(mUnreadMsg));
+                                unreadTV.setVisibility(View.VISIBLE);
+                                if (mSelectedDest.length() > 11) {
+                                    String newName = mSelectedDest.substring(0, 11) + "...";
+                                    textView.setText(newName);
+                                }
+                            }
                         }
                     });
                     break;

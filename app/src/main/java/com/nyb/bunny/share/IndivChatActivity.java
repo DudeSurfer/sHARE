@@ -116,6 +116,10 @@ public class IndivChatActivity extends ActionBarActivity {
                                     ((object.get("fromName").equals(mParseUser.getUsername())) &&
                                             (object.get("toName").equals(mCurrentName)))) {
                                 mMessages.add(object);
+                                if (object.get("toName").equals(ParseUser.getCurrentUser().getUsername())){
+                                    object.put("read", true);
+                                    object.saveInBackground();
+                                }
                             }
                         } catch (NullPointerException e2){}
                     }
@@ -128,6 +132,7 @@ public class IndivChatActivity extends ActionBarActivity {
                                     chatMessage.put("toName", mParseUser.getUsername());
                                     chatMessage.put("fromName", mCurrentName);
                                     chatMessage.put("message", mMessageET.getText().toString());
+                                    chatMessage.put("read", false);
                                     chatMessage.saveInBackground(new SaveCallback() {
                                         @Override
                                         public void done(ParseException e) {
