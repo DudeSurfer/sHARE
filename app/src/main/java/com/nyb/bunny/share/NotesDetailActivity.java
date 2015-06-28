@@ -86,7 +86,8 @@ public class NotesDetailActivity extends BaseActivity {
                 mVotesTV.setText("" + (mChosenNote.getNotesUpvoters().size()-mChosenNote.getNotesDownvoters().size()));
                 mCommentsLV.setEmptyView(findViewById(R.id.empty_list_item));
 
-                if (mChosenNote.getContributor().equals(ParseUser.getCurrentUser().getUsername())){
+                if (mChosenNote.getContributorName().equals(ParseUser.getCurrentUser().getUsername())){
+                    Toast.makeText(NotesDetailActivity.this, "You are the creator!", Toast.LENGTH_SHORT).show();
                     mReportButton.setBackgroundResource(R.drawable.ic_delete);
                 }
 
@@ -285,9 +286,9 @@ public class NotesDetailActivity extends BaseActivity {
                 mReportButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mChosenNote.getContributor().equals(ParseUser.getCurrentUser().getUsername())){
+                        if (mChosenNote.getContributorName().equals(ParseUser.getCurrentUser().getUsername())){
                             new CustomDialog.Builder(NotesDetailActivity.this)
-                                    .setTitle("Delete your app?")
+                                    .setTitle("Delete your note?")
                                     .setMessage("Deleting is permanenet")
                                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int whichButton) {
