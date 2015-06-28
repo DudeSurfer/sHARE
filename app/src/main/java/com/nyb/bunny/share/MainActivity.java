@@ -71,7 +71,6 @@ public class MainActivity extends BaseActivity {
             mPMsgUnread.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> list, ParseException e) {
-                    Log.d("arrays", list.toString());
                     ArrayList<String> mUnreadUsers = new ArrayList<>();
                     for (ParseObject pmsgObj : list) {
                         mUnreadUsers.add(pmsgObj.getString("fromName"));
@@ -89,7 +88,6 @@ public class MainActivity extends BaseActivity {
                 public void done(List<ParseObject> list, ParseException e) {
                     final ArrayList<String> mUnreadGroups = new ArrayList<>();
                     if (list != null) {
-                        Log.d("list", list.toString());
                         for (final ParseObject gmsgObj : list) {
                             ParseQuery<ParseObject> mGMsg = new ParseQuery<>("GrpChatMessage");
                             mGMsg.whereEqualTo("toGroup", gmsgObj.getString("title"));
@@ -97,13 +95,11 @@ public class MainActivity extends BaseActivity {
                             mGMsg.findInBackground(new FindCallback<ParseObject>() {
                                 @Override
                                 public void done(List<ParseObject> list2, ParseException e) {
-                                    Log.d("list", list2.toString());
                                     for (ParseObject msgObj : list2) {
                                         if (!msgObj.getList("readBy").contains(ParseUser.getCurrentUser().getUsername())) {
                                             mUnreadGroups.add(gmsgObj.getString("title"));
                                         }
                                         ArrayList<String> mNoRepeatUnreadGroups = new ArrayList<>(new LinkedHashSet<>(mUnreadGroups));
-                                        Log.d("list", mNoRepeatUnreadGroups.toString() + " list size: " + mNoRepeatUnreadGroups.size());
                                         UnreadGroupAdapter mGroupAdapter = new UnreadGroupAdapter(MainActivity.this, R.layout.simplest_user_list_item, mNoRepeatUnreadGroups);
                                         mGroupLV.setAdapter(mGroupAdapter);
                                     }
@@ -111,7 +107,7 @@ public class MainActivity extends BaseActivity {
                             });
                         }
                     } else {
-                        Log.d("list", "List is null!!!!!");
+                        Log.e("ERROR", "List is null");
                     }
                 }
             });

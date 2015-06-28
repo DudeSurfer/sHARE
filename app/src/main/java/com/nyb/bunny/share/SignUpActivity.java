@@ -220,7 +220,6 @@ public class SignUpActivity extends Activity {
                             if (object == null) {
                                 Log.e("ERROR", school + " does not exist.");
                             } else {
-                                Log.d("test", "putting in the members list and saving school");
                                 object.add("members", username);
                                 object.saveInBackground();
                             }
