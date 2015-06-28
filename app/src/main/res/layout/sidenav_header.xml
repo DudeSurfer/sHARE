@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:clickable="false"/>
-        <com.swagger.navneeeth99.share.TypefacedTextView
+        <com.nyb.bunny.share.TypefacedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#d13d25"
