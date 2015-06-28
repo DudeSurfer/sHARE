@@ -53,29 +53,13 @@ public class BaseActivity extends ActionBarActivity {
         try {
             mList = chatQuery.find();
             for (int i=0; i<mList.size(); i++){
-                Log.d("java", mList.get(i).toString());
                 ParseObject mCurrentChat = (ParseObject)mList.get(i);
-                Log.d("java", mCurrentChat.get("title").toString());
                 mNavChoices.add(mCurrentChat.get("title").toString());
             }
         } catch (ParseException e){
 
         }
-//        chatQuery.findInBackground(new FindCallback<ParseObject>() {
-//            @Override
-//            public void done(List list, ParseException e) {
-//                if (list != null) {
-//                    Log.d("java", "list ain't null");
-//                    Log.d("java", list.toString());
-//                    for (int i=0; i<list.size(); i++){
-//                        Log.d("java", list.get(i).toString());
-//                        ParseObject mCurrentChat = (ParseObject)list.get(i);
-//                        Log.d("java", mCurrentChat.get("title").toString());
-//                        mNavChoices.add(mCurrentChat.get("title").toString());
-//                    }
-//                }
-//            }
-//        });
+        
         mLeftNavDrawer = (DrawerLayout)findViewById(R.id.side_nav);
         mLeftNavList = (ListView)findViewById(R.id.drawer_list);
         final View header = getLayoutInflater().inflate(R.layout.sidenav_header, null);

@@ -70,14 +70,14 @@ public class SchoolActivity extends BaseActivity {
     public void refresh(){
         mSchoolMembers = new ArrayList<>();
         mPB.setVisibility(View.VISIBLE);
-        ParseQuery query = ParseQuery.getQuery("SchoolItem");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("SchoolItem");
         query.whereEqualTo("name", ParseUser.getCurrentUser().getString("school"));
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
                     Log.e("ERROR", ParseUser.getCurrentUser().getString("school") + " does not exist.");
                 } else {
-                    mSchoolMembers.addAll((List) object.getList("members"));
+                    mSchoolMembers.addAll((List)object.getList("members"));
                     ParseQuery<ParseUser> query1 = ParseUser.getQuery();
                     query1.setLimit(1000);
                     query1.orderByAscending("lowerUsername");
